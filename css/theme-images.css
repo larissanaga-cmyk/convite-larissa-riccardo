@@ -1,4 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+
 /* Identidade visual baseada nas artes finais fornecidas pelos noivos. */
+
+/* ---------- NOMES DOS NOIVOS ---------- */
+.couple-name {
+  font-family: "Allura", cursive !important;
+  font-weight: 400;
+}
 
 /* ---------- ABERTURA ----------
    A imagem original aparece inteira e sem nenhuma camada gráfica por cima.
