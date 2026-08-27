@@ -115,6 +115,9 @@ body.has-monogram-art .inside-monogram {
   background-size: contain;
   color: transparent;
   box-shadow: none;
+  /* O PNG original tem um fundo claro. Multiplicar o elemento pelo papel
+     faz esse fundo desaparecer visualmente, preservando o traço marrom. */
+  mix-blend-mode: multiply;
 }
 
 body.has-monogram-art .monogram {
