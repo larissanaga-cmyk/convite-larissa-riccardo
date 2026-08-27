@@ -1,6 +1,6 @@
 (() => {
   const config = window.WEDDING_CONFIG || {};
-  const state = { lang: localStorage.getItem("weddingLang") || "pt", opened: false, selectedGift: null };
+  const state = { lang: localStorage.getItem("weddingLang") || "pt", opened: false, page: 0, selectedGift: null };
 
   const story = {
     pt: [
@@ -24,12 +24,8 @@
   };
 
   const translations = {
-    pt: {
-      open:"Toque para abrir",chooseLanguage:"Escolha o idioma e toque no lacre",ourStoryKicker:"Nossa história",ourStoryTitle:"Dois países, uma só história",continue:"Toque para continuar",withParents:"Com a bênção de nossos pais",inviteLead:"Convidamos para celebrar conosco",dateLabel:"Data",ceremonyLabel:"Início da cerimônia",receptionLabel:"Recepção",rsvpKicker:"RSVP",rsvpTitle:"Confirme sua presença",name:"Nome completo",attendance:"Você estará presente?",quantity:"Quantidade",whatsapp:"WhatsApp",message:"Mensagem",yes:"Sim",no:"Não",sendRsvp:"Enviar confirmação",location:"Localização",giftList:"Lista de presentes",music:"Música",giftKicker:"Com carinho",giftTitle:"Lista de presentes",giftIntro:"Os presentes são simbólicos e serão convertidos em contribuição para nossos próximos capítulos.",checkoutDemo:"Integração em preparação. O pagamento real será feito em ambiente seguro do Mercado Pago, com PIX ou cartão.",card:"Cartão",continuePayment:"Continuar para pagamento",backInvitation:"← Voltar ao convite",rsvpSaved:"Presença registrada com carinho. Obrigado!",rsvpDemo:"Formulário pronto. A gravação no Google Sheets será ativada assim que configurarmos o Apps Script.",rsvpError:"Não foi possível enviar agora. Tente novamente em alguns instantes.",giftDemo:"O checkout do Mercado Pago será ativado quando o backend de teste estiver conectado."
-    },
-    it: {
-      open:"Tocca per aprire",chooseLanguage:"Scegli la lingua e tocca il sigillo",ourStoryKicker:"La nostra storia",ourStoryTitle:"Due Paesi, una sola storia",continue:"Tocca per continuare",withParents:"Con la benedizione dei nostri genitori",inviteLead:"Vi invitiamo a celebrare con noi",dateLabel:"Data",ceremonyLabel:"Inizio della cerimonia",receptionLabel:"Ricevimento",rsvpKicker:"RSVP",rsvpTitle:"Conferma la tua presenza",name:"Nome e cognome",attendance:"Sarai presente?",quantity:"Numero di persone",whatsapp:"WhatsApp",message:"Messaggio",yes:"Sì",no:"No",sendRsvp:"Invia conferma",location:"Posizione",giftList:"Lista regali",music:"Musica",giftKicker:"Con affetto",giftTitle:"Lista regali",giftIntro:"I regali sono simbolici e diventeranno un contributo ai nostri prossimi capitoli.",checkoutDemo:"Integrazione in preparazione. Il pagamento reale avverrà nell'ambiente sicuro di Mercado Pago, tramite PIX o carta.",card:"Carta",continuePayment:"Continua al pagamento",backInvitation:"← Torna all'invito",rsvpSaved:"Presenza registrata con affetto. Grazie!",rsvpDemo:"Il modulo è pronto. Il salvataggio su Google Sheets sarà attivato appena configureremo Apps Script.",rsvpError:"Non è stato possibile inviare ora. Riprova tra poco.",giftDemo:"Il checkout di Mercado Pago sarà attivato quando collegheremo il backend di test."
-    }
+    pt: {open:"Toque para abrir",chooseLanguage:"Escolha o idioma e toque no lacre",ourStoryKicker:"Nossa história",ourStoryTitle:"Dois países, uma só história",continueInvitation:"Ver o convite",storyMenu:"Nossa história",invitationMenu:"Convite",withParents:"Com a bênção de nossos pais",inviteLead:"Convidamos para celebrar conosco",dateLabel:"Data",ceremonyLabel:"Início da cerimônia",receptionLabel:"Recepção",rsvpTitle:"Confirme sua presença",name:"Nome completo",attendance:"Você estará presente?",quantity:"Quantidade",whatsapp:"WhatsApp",message:"Mensagem",yes:"Sim",no:"Não",sendRsvp:"Enviar confirmação",location:"Localização",giftList:"Lista de presentes",giftKicker:"Com carinho",giftTitle:"Lista de presentes",giftIntro:"Os presentes são simbólicos e serão convertidos em contribuição para nossos próximos capítulos.",checkoutDemo:"Integração em preparação. O pagamento real será feito em ambiente seguro do Mercado Pago, com PIX ou cartão.",card:"Cartão",continuePayment:"Continuar para pagamento",backInvitation:"Voltar ao convite",backStory:"História",rsvpSaved:"Presença registrada com carinho. Obrigado!",rsvpDemo:"Formulário pronto. A gravação no Google Sheets será ativada assim que configurarmos o Apps Script.",rsvpError:"Não foi possível enviar agora. Tente novamente em alguns instantes.",giftDemo:"O checkout do Mercado Pago será ativado quando o backend de teste estiver conectado."},
+    it: {open:"Tocca per aprire",chooseLanguage:"Scegli la lingua e tocca il sigillo",ourStoryKicker:"La nostra storia",ourStoryTitle:"Due Paesi, una sola storia",continueInvitation:"Vedi l'invito",storyMenu:"La nostra storia",invitationMenu:"Invito",withParents:"Con la benedizione dei nostri genitori",inviteLead:"Vi invitiamo a celebrare con noi",dateLabel:"Data",ceremonyLabel:"Inizio della cerimonia",receptionLabel:"Ricevimento",rsvpTitle:"Conferma la tua presenza",name:"Nome e cognome",attendance:"Sarai presente?",quantity:"Numero di persone",whatsapp:"WhatsApp",message:"Messaggio",yes:"Sì",no:"No",sendRsvp:"Invia conferma",location:"Posizione",giftList:"Lista regali",giftKicker:"Con affetto",giftTitle:"Lista regali",giftIntro:"I regali sono simbolici e diventeranno un contributo ai nostri prossimi capitoli.",checkoutDemo:"Integrazione in preparazione. Il pagamento reale avverrà nell'ambiente sicuro di Mercado Pago, tramite PIX o carta.",card:"Carta",continuePayment:"Continua al pagamento",backInvitation:"Torna all'invito",backStory:"Storia",rsvpSaved:"Presenza registrata con affetto. Grazie!",rsvpDemo:"Il modulo è pronto. Il salvataggio su Google Sheets sarà attivato appena configureremo Apps Script.",rsvpError:"Non è stato possibile inviare ora. Riprova tra poco.",giftDemo:"Il checkout di Mercado Pago sarà attivato quando collegheremo il backend di test."}
   };
 
   const gifts = [
@@ -54,69 +50,55 @@
     renderStory(); renderGifts();
   }
 
-  function renderStory(){
-    $("#story-copy").innerHTML=story[state.lang].map((p,i)=>`<p${i===5?' class="story-highlight"':''}>${escapeHTML(p)}</p>`).join("");
-  }
+  function renderStory(){ $("#story-copy").innerHTML=story[state.lang].map((p,i)=>`<p${i===5?' class="story-highlight"':''}>${escapeHTML(p)}</p>`).join(""); }
 
   function renderGifts(){
-    const grid=$("#gift-grid");
-    grid.innerHTML=gifts.map(g=>{
-      const price=g.price?new Intl.NumberFormat(state.lang==="it"?"it-IT":"pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0}).format(g.price):(state.lang==="it"?"Scegli tu":"Você escolhe");
-      return `<article class="gift-card"><div class="gift-card__icon" aria-hidden="true">${g.icon}</div><h3>${escapeHTML(g.title[state.lang])}</h3><p>${escapeHTML(g.description[state.lang])}</p><div class="gift-card__price">${price}</div><button class="primary-button gift-action" type="button" data-gift="${g.id}">${state.lang==="it"?"Regala":"Presentear"}</button></article>`;
-    }).join("");
+    $("#gift-grid").innerHTML=gifts.map(g=>{const price=g.price?new Intl.NumberFormat(state.lang==="it"?"it-IT":"pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0}).format(g.price):(state.lang==="it"?"Scegli tu":"Você escolhe");return `<article class="gift-card"><div class="gift-card__icon">${g.icon}</div><h3>${escapeHTML(g.title[state.lang])}</h3><p>${escapeHTML(g.description[state.lang])}</p><div class="gift-card__price">${price}</div><button class="primary-button gift-action" type="button" data-gift="${g.id}">${state.lang==="it"?"Regala":"Presentear"}</button></article>`;}).join("");
     $$(".gift-action").forEach(btn=>btn.addEventListener("click",()=>openGift(btn.dataset.gift)));
   }
 
+  function goToPage(index){
+    const next=Math.max(0,Math.min(2,Number(index))); state.page=next;
+    $("#pages-track").style.transform=`translate3d(-${next*100}vw,0,0)`;
+    $$(".page").forEach((page,i)=>page.classList.toggle("is-current",i===next));
+    $$("#page-dots button").forEach((dot,i)=>dot.classList.toggle("is-active",i===next));
+    const current=$$(".page")[next]; const scroller=current?.querySelector(".page-scroll"); if(scroller) scroller.scrollTo({top:0,behavior:"smooth"});
+  }
+
   async function openEnvelope(){
-    if(state.opened)return; state.opened=true; $("#envelope").classList.add("is-opening"); startMusic();
-    await new Promise(r=>setTimeout(r,900)); $("#historia").scrollIntoView({behavior:"smooth",block:"start"});
+    if(state.opened)return; state.opened=true;
+    const overlay=$("#opening-overlay"),envelope=$("#envelope"); overlay.classList.add("is-opening"); envelope.classList.add("is-opening"); startMusic();
+    await new Promise(r=>setTimeout(r,1100)); overlay.classList.add("is-gone"); $("#experience-tools").hidden=false; $("#page-dots").hidden=false; goToPage(0);
   }
 
-  function startMusic(){
-    const audio=$("#background-music"); if(!config.MUSIC_SRC)return; if(!audio.src)audio.src=config.MUSIC_SRC;
-    audio.play().then(()=>updateMusicButton(true)).catch(()=>updateMusicButton(false));
-  }
+  function startMusic(){const audio=$("#background-music");if(!config.MUSIC_SRC)return;if(!audio.src)audio.src=config.MUSIC_SRC;audio.play().then(()=>updateMusicButton(true)).catch(()=>updateMusicButton(false));}
   function updateMusicButton(playing){const b=$("#music-button");b.classList.toggle("is-playing",playing);b.setAttribute("aria-pressed",String(playing));}
-  async function toggleMusic(){
-    const audio=$("#background-music");
-    if(!config.MUSIC_SRC){alert(state.lang==="it"?"La traccia musicale verrà aggiunta prima della pubblicazione finale.":"A trilha musical será adicionada antes da publicação final.");return;}
-    if(audio.paused){try{await audio.play();updateMusicButton(true)}catch{updateMusicButton(false)}}else{audio.pause();updateMusicButton(false)}
-  }
-
-  function setupMainVisibility(){
-    const main=$("#convite"); const observer=new IntersectionObserver(entries=>entries.forEach(e=>main.classList.toggle("is-visible",e.isIntersecting&&e.intersectionRatio>.25)),{threshold:[0,.25,.5]}); observer.observe(main);
-  }
+  async function toggleMusic(){const audio=$("#background-music");if(!config.MUSIC_SRC){alert(state.lang==="it"?"La traccia musicale verrà aggiunta prima della pubblicazione finale.":"A trilha musical será adicionada antes da publicação final.");return;}if(audio.paused){try{await audio.play();updateMusicButton(true)}catch{updateMusicButton(false)}}else{audio.pause();updateMusicButton(false)}}
 
   async function submitRSVP(event){
-    event.preventDefault(); const form=event.currentTarget,status=$("#rsvp-status"),fd=new FormData(form);
-    const payload={timestamp:new Date().toISOString(),name:String(fd.get("name")||"").trim(),attendance:fd.get("attendance"),quantity:Number(fd.get("quantity")||1),whatsapp:String(fd.get("whatsapp")||"").trim(),message:String(fd.get("message")||"").trim(),language:state.lang};
-    if(!payload.name){status.textContent=state.lang==="it"?"Inserisci il tuo nome.":"Informe seu nome.";return;}
-    status.textContent=state.lang==="it"?"Invio...":"Enviando...";
-    if(!config.GOOGLE_SCRIPT_URL){await new Promise(r=>setTimeout(r,450));status.textContent=t("rsvpDemo");return;}
-    try{const response=await fetch(config.GOOGLE_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});if(!response.ok)throw new Error("RSVP request failed");status.textContent=t("rsvpSaved");form.reset();}
-    catch(error){console.error(error);status.textContent=t("rsvpError");}
+    event.preventDefault();const form=event.currentTarget,status=$("#rsvp-status"),fd=new FormData(form);const payload={timestamp:new Date().toISOString(),name:String(fd.get("name")||"").trim(),attendance:fd.get("attendance"),quantity:Number(fd.get("quantity")||1),whatsapp:String(fd.get("whatsapp")||"").trim(),message:String(fd.get("message")||"").trim(),language:state.lang};
+    if(!payload.name){status.textContent=state.lang==="it"?"Inserisci il tuo nome.":"Informe seu nome.";return;}status.textContent=state.lang==="it"?"Invio...":"Enviando...";
+    if(!config.GOOGLE_SCRIPT_URL){await new Promise(r=>setTimeout(r,400));status.textContent=t("rsvpDemo");return;}
+    try{const response=await fetch(config.GOOGLE_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});if(!response.ok)throw new Error("RSVP request failed");status.textContent=t("rsvpSaved");form.reset();}catch(error){console.error(error);status.textContent=t("rsvpError");}
   }
 
-  function openGift(id){const gift=gifts.find(g=>g.id===id);if(!gift)return;state.selectedGift=gift;const checkout=$("#gift-checkout");checkout.hidden=false;$("#checkout-title").textContent=gift.title[state.lang];$("#checkout-copy").textContent=t("checkoutDemo");checkout.scrollIntoView({behavior:"smooth",block:"center"});}
-  async function startCheckout(){
-    if(!state.selectedGift)return;
-    if(!config.PAYMENT_API_URL){alert(t("giftDemo"));return;}
-    try{const response=await fetch(config.PAYMENT_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({giftId:state.selectedGift.id,lang:state.lang})});if(!response.ok)throw new Error("Checkout request failed");const data=await response.json();if(data.init_point)window.location.href=data.init_point;else throw new Error("Missing init_point");}
-    catch(error){console.error(error);alert(state.lang==="it"?"Non è stato possibile aprire il pagamento.":"Não foi possível abrir o pagamento.");}
-  }
+  function openGift(id){const gift=gifts.find(g=>g.id===id);if(!gift)return;state.selectedGift=gift;const box=$("#gift-checkout");box.hidden=false;$("#checkout-title").textContent=gift.title[state.lang];$("#checkout-copy").textContent=t("checkoutDemo");box.scrollIntoView({behavior:"smooth",block:"center"});}
+  async function startCheckout(){if(!state.selectedGift)return;if(!config.PAYMENT_API_URL){alert(t("giftDemo"));return;}try{const response=await fetch(config.PAYMENT_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({giftId:state.selectedGift.id,lang:state.lang})});if(!response.ok)throw new Error("Checkout request failed");const data=await response.json();if(data.init_point)window.location.href=data.init_point;else throw new Error("Missing init_point");}catch(error){console.error(error);alert(state.lang==="it"?"Non è stato possibile aprire il pagamento.":"Não foi possível abrir o pagamento.");}}
 
-  function setupMenu(){
-    const button=$("#menu-button"),panel=$("#menu-panel");
-    button.addEventListener("click",()=>{const open=panel.classList.toggle("is-open");button.setAttribute("aria-expanded",String(open));});
-    panel.addEventListener("click",()=>{panel.classList.remove("is-open");button.setAttribute("aria-expanded","false");});
-    document.addEventListener("click",e=>{if(!panel.contains(e.target)&&!button.contains(e.target)){panel.classList.remove("is-open");button.setAttribute("aria-expanded","false");}});
+  function setupMenu(){const button=$("#menu-button"),panel=$("#menu-panel");button.addEventListener("click",()=>{const open=panel.classList.toggle("is-open");button.setAttribute("aria-expanded",String(open));});panel.addEventListener("click",()=>{panel.classList.remove("is-open");button.setAttribute("aria-expanded","false")});document.addEventListener("click",e=>{if(!panel.contains(e.target)&&!button.contains(e.target)){panel.classList.remove("is-open");button.setAttribute("aria-expanded","false")}});}
+
+  function setupSwipe(){
+    let startX=0,startY=0,active=false;
+    const target=$("#paper-window")||document.querySelector(".paper-window");
+    target.addEventListener("touchstart",e=>{const t=e.changedTouches[0];startX=t.clientX;startY=t.clientY;active=true},{passive:true});
+    target.addEventListener("touchend",e=>{if(!active)return;active=false;const t=e.changedTouches[0],dx=t.clientX-startX,dy=t.clientY-startY;if(Math.abs(dx)<55||Math.abs(dx)<Math.abs(dy)*1.25)return;if(dx<0&&state.page<2)goToPage(state.page+1);if(dx>0&&state.page>0)goToPage(state.page-1)},{passive:true});
   }
-  function syncMapLink(){const map=$("#menu-panel a[target='_blank']");if(config.MAP_URL&&map)map.href=config.MAP_URL;}
 
   function init(){
     $$(".lang-button").forEach(btn=>btn.addEventListener("click",()=>setLanguage(btn.dataset.lang)));
-    $("#open-envelope").addEventListener("click",openEnvelope); $("#to-main").addEventListener("click",()=>$("#convite").scrollIntoView({behavior:"smooth"})); $("#music-button").addEventListener("click",toggleMusic); $("#rsvp-form").addEventListener("submit",submitRSVP); $("#checkout-close").addEventListener("click",()=>$("#gift-checkout").hidden=true); $("#checkout-action").addEventListener("click",startCheckout);
-    setupMenu(); setupMainVisibility(); syncMapLink(); setLanguage(state.lang);
+    $("#open-envelope").addEventListener("click",openEnvelope); $("#music-button").addEventListener("click",toggleMusic); $("#rsvp-form").addEventListener("submit",submitRSVP); $("#checkout-close").addEventListener("click",()=>$("#gift-checkout").hidden=true); $("#checkout-action").addEventListener("click",startCheckout);
+    $$('[data-next]').forEach(btn=>btn.addEventListener("click",()=>goToPage(btn.dataset.next))); $$('[data-page]').forEach(btn=>btn.addEventListener("click",()=>goToPage(btn.dataset.page)));
+    if(config.MAP_URL)$("#location-link").href=config.MAP_URL; setupMenu(); setupSwipe(); setLanguage(state.lang); goToPage(0);
   }
   document.addEventListener("DOMContentLoaded",init);
 })();
