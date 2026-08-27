@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f7efdf">
-  <meta name="description" content="Convite de casamento de Larissa e Riccardo — 25 de outubro de 2026.">
   <title>Larissa & Riccardo — 25.10.2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,56 +11,78 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <noscript><div class="noscript">Este convite precisa de JavaScript ativado para exibir as animações.</div></noscript>
-
-  <section class="scene scene--opening" id="abertura" aria-labelledby="opening-title">
-    <div class="language-switch" role="group" aria-label="Escolha o idioma">
-      <button class="lang-button is-active" type="button" data-lang="pt">PT</button><span aria-hidden="true">|</span><button class="lang-button" type="button" data-lang="it">IT</button>
+  <main class="experience" id="experience">
+    <div class="experience-tools" id="experience-tools" hidden>
+      <div class="mini-language" role="group" aria-label="Idioma"><button data-lang="pt" class="lang-button is-active">PT</button><span>|</span><button data-lang="it" class="lang-button">IT</button></div>
+      <button class="music-button" id="music-button" type="button" aria-pressed="false" title="Música">♪</button>
+      <button class="brush-menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <nav class="menu-panel" id="menu-panel"><button data-page="0" data-i18n="storyMenu">Nossa história</button><button data-page="1" data-i18n="invitationMenu">Convite</button><button data-page="2" data-i18n="giftList">Lista de presentes</button><a id="location-link" href="https://share.google/CtQGtm6MDaeGIzhuj" target="_blank" rel="noopener" data-i18n="location">Localização</a></nav>
     </div>
-    <h1 id="opening-title" class="sr-only">Convite de Larissa e Riccardo</h1>
-    <div class="envelope" id="envelope" aria-label="Envelope do convite">
-      <div class="envelope__left" aria-hidden="true"></div><div class="envelope__right" aria-hidden="true"></div>
-      <button class="seal" id="open-envelope" type="button" aria-label="Abrir convite"><span class="seal__monogram">LR</span><span class="seal__hint" data-i18n="open">Toque para abrir</span></button>
+
+    <div class="paper-window" aria-live="polite">
+      <div class="pages-track" id="pages-track">
+        <section class="page page--story" data-page-index="0" aria-labelledby="story-title">
+          <div class="page-scroll">
+            <header class="section-heading"><div class="monogram">LR</div><p class="eyebrow" data-i18n="ourStoryKicker">Nossa história</p><h1 id="story-title" data-i18n="ourStoryTitle">Dois países, uma só história</h1></header>
+            <article class="story-copy" id="story-copy"></article>
+            <button class="page-turn page-turn--next" type="button" data-next="1"><span data-i18n="continueInvitation">Ver o convite</span><span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="page page--invitation" data-page-index="1" aria-labelledby="main-title">
+          <div class="page-scroll invitation-scroll">
+            <svg class="botanical botanical--tl" viewBox="0 0 240 190" aria-hidden="true"><path d="M8 18 C70 55,105 112,220 178"/><g><ellipse cx="42" cy="43" rx="27" ry="9"/><ellipse cx="76" cy="68" rx="25" ry="9"/><ellipse cx="111" cy="96" rx="27" ry="9"/><ellipse cx="150" cy="127" rx="26" ry="9"/><ellipse cx="188" cy="155" rx="24" ry="9"/></g></svg>
+            <svg class="botanical botanical--br" viewBox="0 0 240 190" aria-hidden="true"><path d="M8 18 C70 55,105 112,220 178"/><g><ellipse cx="42" cy="43" rx="27" ry="9"/><ellipse cx="76" cy="68" rx="25" ry="9"/><ellipse cx="111" cy="96" rx="27" ry="9"/><ellipse cx="150" cy="127" rx="26" ry="9"/><ellipse cx="188" cy="155" rx="24" ry="9"/></g></svg>
+
+            <div class="invitation-card">
+              <div class="parents"><p class="parents__heading" data-i18n="withParents">Com a bênção de nossos pais</p><div class="parents__grid"><p>Pedro Luiz de Moura Lopes<br>Miho Nagaoka Lopes</p><p>Vladimiro Pace<br>Orietta Borri Pace</p></div></div>
+              <p class="invitation-lead" data-i18n="inviteLead">Convidamos para celebrar conosco</p>
+              <div class="couple-lockup" id="main-title"><span class="ampersand">&amp;</span><span class="couple-name couple-name--larissa">Larissa</span><span class="couple-name couple-name--riccardo">Riccardo</span></div>
+              <div class="event-details"><div><span data-i18n="dateLabel">Data</span><strong>25.Outubro.2026</strong></div><div><span data-i18n="ceremonyLabel">Início da cerimônia</span><strong>11:30</strong></div><div><span data-i18n="receptionLabel">Recepção</span><strong>12:30</strong></div></div>
+
+              <section class="rsvp-block" aria-labelledby="rsvp-title"><p class="eyebrow">RSVP</p><h2 id="rsvp-title" data-i18n="rsvpTitle">Confirme sua presença</h2>
+                <form id="rsvp-form" novalidate>
+                  <label><span data-i18n="name">Nome completo</span><input name="name" autocomplete="name" required></label>
+                  <div class="form-row"><label><span data-i18n="attendance">Você estará presente?</span><select name="attendance"><option value="yes" data-i18n="yes">Sim</option><option value="no" data-i18n="no">Não</option></select></label><label><span data-i18n="quantity">Quantidade</span><select name="quantity"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label></div>
+                  <label><span data-i18n="whatsapp">WhatsApp</span><input name="whatsapp" inputmode="tel" autocomplete="tel"></label>
+                  <label><span data-i18n="message">Mensagem</span><textarea name="message" rows="3"></textarea></label>
+                  <button class="primary-button" type="submit" data-i18n="sendRsvp">Enviar confirmação</button><p class="form-status" id="rsvp-status" role="status"></p>
+                </form>
+              </section>
+            </div>
+            <div class="page-actions"><button class="page-turn" type="button" data-next="0">← <span data-i18n="backStory">História</span></button><button class="page-turn page-turn--next" type="button" data-next="2"><span data-i18n="giftList">Lista de presentes</span> →</button></div>
+          </div>
+        </section>
+
+        <section class="page page--gifts" data-page-index="2" aria-labelledby="gifts-title">
+          <div class="page-scroll">
+            <header class="section-heading"><div class="monogram">LR</div><p class="eyebrow" data-i18n="giftKicker">Com carinho</p><h1 id="gifts-title" data-i18n="giftTitle">Lista de presentes</h1><p class="section-intro" data-i18n="giftIntro">Os presentes são simbólicos e serão convertidos em contribuição para nossos próximos capítulos.</p></header>
+            <div class="gift-grid" id="gift-grid"></div>
+            <div class="gift-checkout" id="gift-checkout" hidden><button class="checkout-close" id="checkout-close" type="button">×</button><p class="eyebrow">Mercado Pago</p><h2 id="checkout-title">Pagamento</h2><p id="checkout-copy" data-i18n="checkoutDemo">Integração em preparação. O pagamento real será feito em ambiente seguro do Mercado Pago, com PIX ou cartão.</p><div class="payment-methods"><span>PIX</span><span data-i18n="card">Cartão</span></div><button class="primary-button" id="checkout-action" type="button" data-i18n="continuePayment">Continuar para pagamento</button></div>
+            <button class="page-turn" type="button" data-next="1">← <span data-i18n="backInvitation">Voltar ao convite</span></button>
+          </div>
+        </section>
+      </div>
     </div>
-    <p class="opening-caption"><span data-i18n="chooseLanguage">Escolha o idioma e toque no lacre</span></p>
-  </section>
 
-  <section class="scene scene--story" id="historia" aria-labelledby="story-title">
-    <header class="section-heading"><div class="monogram" aria-hidden="true">LR</div><p class="eyebrow" data-i18n="ourStoryKicker">Nossa história</p><h2 id="story-title" data-i18n="ourStoryTitle">Dois países, uma só história</h2></header>
-    <article class="story-copy" id="story-copy" aria-live="polite"></article>
-    <button class="continue-button" id="to-main" type="button"><span data-i18n="continue">Toque para continuar</span><span aria-hidden="true">↓</span></button>
-  </section>
+    <div class="page-dots" id="page-dots" hidden><button class="is-active" data-page="0" aria-label="Página 1"></button><button data-page="1" aria-label="Página 2"></button><button data-page="2" aria-label="Página 3"></button></div>
 
-  <section class="scene scene--main" id="convite" aria-labelledby="main-title">
-    <button class="brush-menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Abrir menu"><span></span><span></span><span></span></button>
-    <nav class="menu-panel" id="menu-panel" aria-label="Menu do convite"><a href="https://share.google/CtQGtm6MDaeGIzhuj" target="_blank" rel="noopener" data-i18n="location">Localização</a><a href="#presentes" data-i18n="giftList">Lista de presentes</a></nav>
-    <button class="music-button" id="music-button" type="button" aria-pressed="false" title="Música"><span class="music-icon" aria-hidden="true">♪</span><span class="sr-only" data-i18n="music">Música</span></button>
-
-    <svg class="botanical botanical--olive botanical--tl" viewBox="0 0 240 190" aria-hidden="true"><path d="M8 18 C70 55,105 112,220 178"/><g class="leaves"><ellipse cx="42" cy="43" rx="27" ry="9" transform="rotate(32 42 43)"/><ellipse cx="68" cy="62" rx="26" ry="9" transform="rotate(-30 68 62)"/><ellipse cx="92" cy="83" rx="27" ry="9" transform="rotate(32 92 83)"/><ellipse cx="119" cy="101" rx="26" ry="9" transform="rotate(-30 119 101)"/><ellipse cx="148" cy="126" rx="27" ry="9" transform="rotate(32 148 126)"/><ellipse cx="176" cy="144" rx="25" ry="9" transform="rotate(-28 176 144)"/></g><g class="olives"><ellipse cx="58" cy="48" rx="8" ry="12"/><ellipse cx="106" cy="90" rx="8" ry="12"/><ellipse cx="160" cy="132" rx="8" ry="12"/></g></svg>
-    <svg class="botanical botanical--olive botanical--br" viewBox="0 0 240 190" aria-hidden="true"><path d="M8 18 C70 55,105 112,220 178"/><g class="leaves"><ellipse cx="42" cy="43" rx="27" ry="9" transform="rotate(32 42 43)"/><ellipse cx="68" cy="62" rx="26" ry="9" transform="rotate(-30 68 62)"/><ellipse cx="92" cy="83" rx="27" ry="9" transform="rotate(32 92 83)"/><ellipse cx="119" cy="101" rx="26" ry="9" transform="rotate(-30 119 101)"/><ellipse cx="148" cy="126" rx="27" ry="9" transform="rotate(32 148 126)"/><ellipse cx="176" cy="144" rx="25" ry="9" transform="rotate(-28 176 144)"/></g><g class="olives"><ellipse cx="58" cy="48" rx="8" ry="12"/><ellipse cx="106" cy="90" rx="8" ry="12"/><ellipse cx="160" cy="132" rx="8" ry="12"/></g></svg>
-    <svg class="botanical botanical--sakura botanical--tr" viewBox="0 0 190 170" aria-hidden="true"><path d="M8 18 C58 44,91 76,172 150"/><g class="blossoms"><g transform="translate(58 50)"><circle r="12"/><circle cx="10" cy="-5" r="9"/><circle cx="-9" cy="-6" r="9"/><circle cx="0" cy="-13" r="8"/></g><g transform="translate(104 92)"><circle r="11"/><circle cx="9" cy="-5" r="8"/><circle cx="-8" cy="-5" r="8"/><circle cx="0" cy="-12" r="7"/></g><g transform="translate(144 127)"><circle r="10"/><circle cx="8" cy="-4" r="7"/><circle cx="-7" cy="-4" r="7"/><circle cx="0" cy="-10" r="6"/></g></g></svg>
-
-    <div class="invitation-card">
-      <div class="parents"><p class="parents__heading" data-i18n="withParents">Com a bênção de nossos pais</p><div class="parents__grid"><p>Pedro Luiz de Moura Lopes<br>Miho Nagaoka Lopes</p><p>Vladimiro Pace<br>Orietta Borri Pace</p></div></div>
-      <p class="invitation-lead" data-i18n="inviteLead">Convidamos para celebrar conosco</p>
-      <div class="couple-lockup" id="main-title"><span class="ampersand" aria-hidden="true">&amp;</span><span class="couple-name couple-name--larissa">Larissa</span><span class="couple-name couple-name--riccardo">Riccardo</span></div>
-      <div class="event-details" aria-label="Informações do casamento"><div><span class="event-details__label" data-i18n="dateLabel">Data</span><strong>25.Outubro.2026</strong></div><div><span class="event-details__label" data-i18n="ceremonyLabel">Início da cerimônia</span><strong>11:30</strong></div><div><span class="event-details__label" data-i18n="receptionLabel">Recepção</span><strong>12:30</strong></div></div>
-
-      <section class="rsvp-block" aria-labelledby="rsvp-title"><p class="eyebrow" data-i18n="rsvpKicker">RSVP</p><h3 id="rsvp-title" data-i18n="rsvpTitle">Confirme sua presença</h3>
-        <form id="rsvp-form" novalidate>
-          <label><span data-i18n="name">Nome completo</span><input name="name" autocomplete="name" required></label>
-          <div class="form-row"><label><span data-i18n="attendance">Você estará presente?</span><select name="attendance" required><option value="yes" data-i18n="yes">Sim</option><option value="no" data-i18n="no">Não</option></select></label><label><span data-i18n="quantity">Quantidade</span><select name="quantity" required><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label></div>
-          <label><span data-i18n="whatsapp">WhatsApp</span><input name="whatsapp" inputmode="tel" autocomplete="tel"></label>
-          <label><span data-i18n="message">Mensagem</span><textarea name="message" rows="3"></textarea></label>
-          <button class="primary-button" type="submit" data-i18n="sendRsvp">Enviar confirmação</button><p class="form-status" id="rsvp-status" role="status"></p>
-        </form>
-      </section>
-    </div>
-  </section>
-
-  <section class="scene scene--gifts" id="presentes" aria-labelledby="gifts-title"><header class="section-heading"><div class="monogram" aria-hidden="true">LR</div><p class="eyebrow" data-i18n="giftKicker">Com carinho</p><h2 id="gifts-title" data-i18n="giftTitle">Lista de presentes</h2><p class="section-intro" data-i18n="giftIntro">Os presentes são simbólicos e serão convertidos em contribuição para nossos próximos capítulos.</p></header><div class="gift-grid" id="gift-grid"></div><div class="gift-checkout" id="gift-checkout" hidden><button class="checkout-close" id="checkout-close" type="button" aria-label="Fechar">×</button><p class="eyebrow">Mercado Pago</p><h3 id="checkout-title">Pagamento</h3><p id="checkout-copy" data-i18n="checkoutDemo">Integração em preparação. O pagamento real será feito em ambiente seguro do Mercado Pago, com PIX ou cartão.</p><div class="payment-methods" aria-hidden="true"><span>PIX</span><span data-i18n="card">Cartão</span></div><button class="primary-button" id="checkout-action" type="button" data-i18n="continuePayment">Continuar para pagamento</button></div><a class="back-link" href="#convite" data-i18n="backInvitation">← Voltar ao convite</a></section>
+    <section class="opening-overlay" id="opening-overlay" aria-labelledby="opening-title">
+      <div class="language-switch" role="group" aria-label="Escolha o idioma"><button class="lang-button is-active" type="button" data-lang="pt">PT</button><span>|</span><button class="lang-button" type="button" data-lang="it">IT</button></div>
+      <h1 id="opening-title" class="sr-only">Convite de Larissa e Riccardo</h1>
+      <div class="envelope" id="envelope">
+        <div class="envelope__inside" aria-hidden="true"><div class="inside-monogram">LR</div></div>
+        <div class="envelope__panel envelope__panel--left"></div>
+        <div class="envelope__panel envelope__panel--right"></div>
+        <div class="envelope__seam" aria-hidden="true"></div>
+        <button class="seal" id="open-envelope" type="button" aria-label="Abrir convite"><span class="seal__monogram">LR</span><span class="seal__hint" data-i18n="open">Toque para abrir</span></button>
+      </div>
+      <p class="opening-caption" data-i18n="chooseLanguage">Escolha o idioma e toque no lacre</p>
+    </section>
+  </main>
 
   <audio id="background-music" loop preload="none"></audio>
-  <script src="js/config.js"></script><script src="js/app.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
