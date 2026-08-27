@@ -1,7 +1,7 @@
 (() => {
   const assets = [
-    { src: "assets/images/abertura.png", className: "has-opening-art" },
-    { src: "assets/images/monograma.png", className: "has-monogram-art" }
+    { src: "3(1).png", className: "has-opening-art" },
+    { src: "nostro timbre.png", className: "has-monogram-art" }
   ];
 
   assets.forEach(({ src, className }) => {
