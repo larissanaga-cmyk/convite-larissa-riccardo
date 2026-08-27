@@ -1,64 +1,131 @@
-/* Ajustes finais dos nomes Larissa e Riccardo com Allura. */
+/* Nomes dos noivos em artes PNG transparentes, preservando o desenho original. */
 .couple-lockup {
-  max-width: 680px;
-  min-height: 250px;
+  position: relative;
+  max-width: 720px;
+  min-height: 310px;
+  margin: 0 auto 10px;
   overflow: visible !important;
-  padding: 0 28px;
+  padding: 0 26px;
 }
 
-.couple-name {
-  font-family: "Allura", cursive !important;
-  font-weight: 400;
-  font-size: clamp(58px, 12vw, 100px) !important;
-  line-height: 1.08 !important;
+.couple-lockup .couple-name,
+.couple-lockup .ampersand {
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  letter-spacing: 0 !important;
   white-space: nowrap;
   overflow: visible !important;
   clip-path: none !important;
   -webkit-clip-path: none !important;
-  padding: .12em .18em .18em;
-  margin: -.12em -.18em -.18em;
-}
-
-.couple-name--larissa {
-  left: 12% !important;
-  top: 17% !important;
-}
-
-.couple-name--riccardo {
-  right: 10% !important;
-  top: 55% !important;
-}
-
-.page--invitation .couple-name {
+  padding: 0 !important;
+  margin: 0 !important;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1) !important;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
-.page--invitation.is-current .couple-name {
+/* & ao fundo */
+.couple-lockup .ampersand {
+  z-index: 1;
+  left: 50% !important;
+  top: 8% !important;
+  width: clamp(180px, 36vw, 285px);
+  height: clamp(210px, 42vw, 315px);
+  background-image: url("../%26.png");
+  transform: translate(-50%, 10px) scale(.94) !important;
+  transition: opacity .85s ease, transform 1.05s cubic-bezier(.2,.75,.2,1) !important;
+}
+
+/* Larissa */
+.couple-lockup .couple-name--larissa {
+  z-index: 2;
+  left: 3% !important;
+  right: auto !important;
+  top: 4% !important;
+  width: clamp(280px, 55vw, 430px);
+  height: auto;
+  aspect-ratio: 1210 / 807;
+  background-image: url("../Larissa.png");
+  transform: translate(-12px, 8px) scale(.98) !important;
+  transition: opacity .8s ease .38s, transform 1s cubic-bezier(.2,.75,.2,1) .38s !important;
+}
+
+/* Riccardo */
+.couple-lockup .couple-name--riccardo {
+  z-index: 3;
+  right: 1% !important;
+  left: auto !important;
+  top: 45% !important;
+  width: clamp(315px, 60vw, 470px);
+  height: auto;
+  aspect-ratio: 1408 / 807;
+  background-image: url("../Riccardo.png");
+  transform: translate(12px, 8px) scale(.98) !important;
+  transition: opacity .8s ease .76s, transform 1s cubic-bezier(.2,.75,.2,1) .76s !important;
+}
+
+.page--invitation.is-current .couple-lockup .ampersand {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0) scale(1) !important;
+}
+
+.page--invitation.is-current .couple-lockup .couple-name--larissa,
+.page--invitation.is-current .couple-lockup .couple-name--riccardo {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) !important;
 }
 
 @media (max-width: 600px) {
   .couple-lockup {
-    min-height: 230px;
+    min-height: 285px;
+    width: 100%;
     max-width: 100%;
-    padding: 0 34px;
+    padding: 0 12px;
   }
 
-  .couple-name {
-    font-size: clamp(50px, 13.2vw, 68px) !important;
-    line-height: 1.12 !important;
+  .couple-lockup .ampersand {
+    top: 11% !important;
+    width: min(49vw, 235px);
+    height: min(58vw, 275px);
   }
 
-  .couple-name--larissa {
-    left: 10% !important;
-    top: 20% !important;
+  .couple-lockup .couple-name--larissa {
+    left: 1% !important;
+    top: 7% !important;
+    width: min(69vw, 345px);
   }
 
-  .couple-name--riccardo {
-    right: 9% !important;
-    top: 57% !important;
+  .couple-lockup .couple-name--riccardo {
+    right: -1% !important;
+    top: 48% !important;
+    width: min(76vw, 380px);
+  }
+}
+
+@media (max-width: 380px) {
+  .couple-lockup {
+    min-height: 260px;
+  }
+
+  .couple-lockup .couple-name--larissa {
+    width: 66vw;
+  }
+
+  .couple-lockup .couple-name--riccardo {
+    width: 73vw;
+    right: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .couple-lockup .couple-name,
+  .couple-lockup .ampersand {
+    transition: none !important;
   }
 }
