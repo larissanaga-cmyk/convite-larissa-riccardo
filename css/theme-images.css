@@ -1,9 +1,9 @@
 /* Camada de identidade visual baseada nas artes finais fornecidas pelos noivos.
-   As imagens são carregadas somente quando existirem no repositório. */
+   Os nomes abaixo correspondem aos arquivos que serão enviados à raiz do repositório. */
 
 body.has-opening-art .envelope__panel {
   background-color: transparent;
-  background-image: url("../assets/images/abertura.png");
+  background-image: url("../3(1).png");
   background-repeat: no-repeat;
   box-shadow: none;
 }
@@ -21,9 +21,7 @@ body.has-opening-art .envelope__panel--right {
   border-left: 0;
 }
 
-body.has-opening-art .envelope__seam {
-  opacity: 0;
-}
+body.has-opening-art .envelope__seam { opacity: 0; }
 
 /* A arte original já contém o lacre dourado e o texto circular.
    O botão continua sobre o lacre, porém fica invisível para preservar a imagem. */
@@ -38,13 +36,8 @@ body.has-opening-art .seal {
 }
 
 body.has-opening-art .seal__monogram,
-body.has-opening-art .seal__hint {
-  opacity: 0;
-}
-
-body.has-opening-art .opening-caption {
-  opacity: 0;
-}
+body.has-opening-art .seal__hint,
+body.has-opening-art .opening-caption { opacity: 0; }
 
 /* Monograma oficial */
 body.has-monogram-art .monogram,
@@ -52,7 +45,7 @@ body.has-monogram-art .inside-monogram {
   border: 0;
   border-radius: 0;
   background-color: transparent;
-  background-image: url("../assets/images/monograma.png");
+  background-image: url("../nostro timbre.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -71,10 +64,7 @@ body.has-monogram-art .inside-monogram {
   margin: auto;
 }
 
-/* Leve acabamento para que a arte de abertura ocupe o máximo possível no celular. */
-body.has-opening-art .opening-overlay {
-  background: #f8f0e2;
-}
+body.has-opening-art .opening-overlay { background: #f8f0e2; }
 
 body.has-opening-art .envelope {
   width: min(100vw, 560px);
