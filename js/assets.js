@@ -1,6 +1,6 @@
 (() => {
   const assets = [
-    { src: "3(1).png", className: "has-opening-art" },
+    { src: "3.png", className: "has-opening-art" },
     { src: "nostro timbre.png", className: "has-monogram-art" }
   ];
 
