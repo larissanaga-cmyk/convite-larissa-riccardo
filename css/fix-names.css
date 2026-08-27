@@ -1,13 +1,14 @@
-/* Nomes dos noivos em artes PNG transparentes, preservando o desenho original. */
+/* Composição dos noivos em PNG, alinhada à arte de referência. */
 .couple-lockup {
   position: relative;
+  width: min(92vw, 760px);
   max-width: 760px;
-  min-height: 350px;
-  margin: 0 auto 10px;
+  aspect-ratio: 1919 / 1486;
+  min-height: 0;
+  margin: 0 auto 18px;
   overflow: visible !important;
-  padding: 0 20px;
+  padding: 0;
 }
-
 .couple-lockup .couple-name,
 .couple-lockup .ampersand {
   position: absolute;
@@ -19,7 +20,6 @@
   font-size: 0 !important;
   line-height: 0 !important;
   letter-spacing: 0 !important;
-  white-space: nowrap;
   overflow: visible !important;
   clip-path: none !important;
   -webkit-clip-path: none !important;
@@ -29,59 +29,44 @@
   pointer-events: none;
   will-change: transform, opacity;
 }
-
-/* & grande ao fundo, seguindo a composição da arte de referência */
 .couple-lockup .ampersand {
   z-index: 1;
-  left: 54% !important;
-  top: -2% !important;
-  width: clamp(270px, 52vw, 410px);
-  height: clamp(300px, 58vw, 450px);
+  left: 14.75% !important;
+  top: 0 !important;
+  width: 70.87%;
+  height: 100%;
   background-image: url("../%26.png");
-  transform: translate(-50%, 12px) scale(.94) !important;
+  transform: translateY(10px) scale(.96) !important;
   transition: opacity .85s ease, transform 1.05s cubic-bezier(.2,.75,.2,1) !important;
 }
-
-/* Larissa sobre a parte superior esquerda do & */
 .couple-lockup .couple-name--larissa {
   z-index: 2;
   left: 0 !important;
   right: auto !important;
-  top: 4% !important;
-  width: clamp(300px, 54vw, 430px);
-  height: auto;
-  aspect-ratio: 1210 / 807;
+  top: 6.46% !important;
+  width: 63.05%;
+  height: 54.31%;
   background-image: url("../Larissa.png");
-  transform: translate(-10px, 8px) scale(.98) !important;
+  transform: translate(-10px, 6px) scale(.985) !important;
   transition: opacity .8s ease .38s, transform 1s cubic-bezier(.2,.75,.2,1) .38s !important;
 }
-
-/* Riccardo atravessa a parte inferior direita do & */
 .couple-lockup .couple-name--riccardo {
   z-index: 3;
-  right: -1% !important;
-  left: auto !important;
-  top: 50% !important;
-  width: clamp(330px, 59vw, 470px);
-  height: auto;
-  aspect-ratio: 1408 / 807;
+  left: 26.68% !important;
+  right: auto !important;
+  top: 37.15% !important;
+  width: 73.37%;
+  height: 54.31%;
   background-image: url("../Riccardo.png");
-  transform: translate(10px, 8px) scale(.98) !important;
+  transform: translate(10px, 6px) scale(.985) !important;
   transition: opacity .8s ease .76s, transform 1s cubic-bezier(.2,.75,.2,1) .76s !important;
 }
-
-.page--invitation.is-current .couple-lockup .ampersand {
-  opacity: 1;
-  transform: translate(-50%, 0) scale(1) !important;
-}
-
+.page--invitation.is-current .couple-lockup .ampersand,
 .page--invitation.is-current .couple-lockup .couple-name--larissa,
 .page--invitation.is-current .couple-lockup .couple-name--riccardo {
   opacity: 1;
-  transform: translate(0, 0) scale(1) !important;
+  transform: translate(0,0) scale(1) !important;
 }
-
-/* Ramos de sakura oficiais */
 .floral-art {
   position: absolute;
   z-index: 1;
@@ -94,101 +79,33 @@
   transform-origin: center;
   transition: opacity 1s ease .2s, transform 1.35s cubic-bezier(.2,.75,.2,1) .2s;
 }
-
 .floral-art--tl {
   top: 38px;
   left: -68px;
   transform: translate(-24px,-18px) rotate(-8deg) scale(.92);
 }
-
 .floral-art--br {
   right: -76px;
   bottom: 130px;
   transform: translate(24px,18px) rotate(172deg) scale(.92);
 }
-
-.page--invitation.is-current .floral-art {
-  opacity: .94;
-}
-
-.page--invitation.is-current .floral-art--tl {
-  transform: translate(0,0) rotate(-8deg) scale(1);
-}
-
-.page--invitation.is-current .floral-art--br {
-  transform: translate(0,0) rotate(172deg) scale(1);
-}
-
+.page--invitation.is-current .floral-art { opacity: .94; }
+.page--invitation.is-current .floral-art--tl { transform: translate(0,0) rotate(-8deg) scale(1); }
+.page--invitation.is-current .floral-art--br { transform: translate(0,0) rotate(172deg) scale(1); }
 @media (max-width: 600px) {
   .couple-lockup {
-    min-height: 315px;
     width: 100%;
     max-width: 100%;
-    padding: 0 8px;
+    aspect-ratio: 1919 / 1486;
+    margin-bottom: 16px;
   }
-
-  .couple-lockup .ampersand {
-    left: 54% !important;
-    top: 1% !important;
-    width: min(68vw, 300px);
-    height: min(78vw, 350px);
-  }
-
-  .couple-lockup .couple-name--larissa {
-    left: 0 !important;
-    top: 8% !important;
-    width: min(70vw, 345px);
-  }
-
-  .couple-lockup .couple-name--riccardo {
-    right: -1% !important;
-    top: 52% !important;
-    width: min(78vw, 380px);
-  }
-
-  .floral-art {
-    width: min(46vw, 245px);
-  }
-
-  .floral-art--tl {
-    top: 52px;
-    left: -86px;
-  }
-
-  .floral-art--br {
-    right: -92px;
-    bottom: 155px;
-  }
+  .floral-art { width: min(46vw, 245px); }
+  .floral-art--tl { top: 52px; left: -86px; }
+  .floral-art--br { right: -92px; bottom: 155px; }
 }
-
-@media (max-width: 380px) {
-  .couple-lockup {
-    min-height: 285px;
-  }
-
-  .couple-lockup .ampersand {
-    width: 66vw;
-    height: 76vw;
-  }
-
-  .couple-lockup .couple-name--larissa {
-    width: 67vw;
-  }
-
-  .couple-lockup .couple-name--riccardo {
-    width: 75vw;
-    right: 0 !important;
-  }
-
-  .floral-art {
-    width: 44vw;
-  }
-}
-
+@media (max-width: 380px) { .floral-art { width: 44vw; } }
 @media (prefers-reduced-motion: reduce) {
   .couple-lockup .couple-name,
   .couple-lockup .ampersand,
-  .floral-art {
-    transition: none !important;
-  }
+  .floral-art { transition: none !important; }
 }
