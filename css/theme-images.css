@@ -3,159 +3,36 @@
 /* Identidade visual baseada nas artes finais fornecidas pelos noivos. */
 
 /* ---------- NOMES DOS NOIVOS ---------- */
-.couple-name {
-  font-family: "Allura", cursive !important;
-  font-weight: 400;
-}
+.couple-lockup { max-width: 680px; min-height: 235px; overflow: hidden; }
+.couple-name { font-family: "Allura", cursive !important; font-weight: 400; font-size: clamp(60px, 14vw, 108px) !important; line-height: .92 !important; white-space: nowrap; }
+.couple-name--larissa { left: 10% !important; top: 20% !important; }
+.couple-name--riccardo { right: 7% !important; top: 58% !important; }
 
-/* ---------- ABERTURA ----------
-   A imagem original aparece inteira e sem nenhuma camada gráfica por cima.
-   Ao tocar no lacre, ela é substituída visualmente por duas cópias recortadas
-   da mesma arte, que se afastam para os lados. */
-body.has-opening-art .opening-overlay {
-  background: #f8f0e2;
-}
-
-body.has-opening-art .envelope {
-  width: min(100vw, 560px);
-  max-width: 100vw;
-  max-height: 100dvh;
-  aspect-ratio: 1040 / 1472;
-  overflow: hidden;
-  border-radius: 0;
-  background: transparent;
-  filter: drop-shadow(0 16px 26px rgba(67,41,19,.12));
-}
-
-/* Imagem íntegra no estado fechado. */
-body.has-opening-art .envelope::after {
-  content: "";
-  position: absolute;
-  z-index: 10;
-  inset: 0;
-  background: url("../3.png") center / 100% 100% no-repeat;
-  opacity: 1;
-  pointer-events: none;
-  transition: opacity .08s linear;
-}
-
-/* Ao começar a abertura, a imagem íntegra some e as duas metades idênticas
-   já estão exatamente no mesmo lugar, evitando qualquer salto visual. */
-body.has-opening-art .envelope.is-opening::after {
-  opacity: 0;
-}
-
-body.has-opening-art .envelope__panel {
-  z-index: 9;
-  background-color: transparent !important;
-  background-image: url("../3.png") !important;
-  background-repeat: no-repeat !important;
-  box-shadow: none !important;
-  filter: none;
-}
-
-body.has-opening-art .envelope__panel::before {
-  display: none !important;
-}
-
-body.has-opening-art .envelope__panel--left {
-  width: 73%;
-  background-size: calc(100% / .73) 100% !important;
-  background-position: left top !important;
-  border: 0 !important;
-}
-
-body.has-opening-art .envelope__panel--right {
-  width: 27%;
-  background-size: calc(100% / .27) 100% !important;
-  background-position: right top !important;
-  border: 0 !important;
-}
-
-body.has-opening-art .envelope__seam {
-  display: none !important;
-}
-
-/* A própria arte já contém lacre + monograma + texto “toque para abrir”.
-   O botão abaixo é somente uma área clicável invisível. */
-body.has-opening-art .seal,
-body.has-opening-art .seal:hover,
-body.has-opening-art .seal:focus,
-body.has-opening-art .seal:active {
-  z-index: 20;
-  left: 72.7%;
-  top: 50.4%;
-  width: clamp(96px, 22vw, 130px);
-  height: auto;
-  aspect-ratio: 1;
-  transform: translate(-50%,-50%);
-  border: 0 !important;
-  border-radius: 50%;
-  background: none !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  color: transparent !important;
-  outline: none;
-}
-
-body.has-opening-art .seal::before,
-body.has-opening-art .seal::after,
-body.has-opening-art .seal__monogram,
-body.has-opening-art .seal__hint,
-body.has-opening-art .opening-caption {
-  display: none !important;
-}
-
-body.has-opening-art .envelope.is-opening .seal {
-  opacity: 0;
-  pointer-events: none;
-}
+/* ---------- ABERTURA ---------- */
+body.has-opening-art .opening-overlay { background: #f8f0e2; }
+body.has-opening-art .envelope { width: min(100vw, 560px); max-width: 100vw; max-height: 100dvh; aspect-ratio: 1040 / 1472; overflow: hidden; border-radius: 0; background: transparent; filter: drop-shadow(0 16px 26px rgba(67,41,19,.12)); }
+body.has-opening-art .envelope::after { content: ""; position: absolute; z-index: 10; inset: 0; background: url("../3.png") center / 100% 100% no-repeat; opacity: 1; pointer-events: none; transition: opacity .08s linear; }
+body.has-opening-art .envelope.is-opening::after { opacity: 0; }
+body.has-opening-art .envelope__panel { z-index: 9; background-color: transparent !important; background-image: url("../3.png") !important; background-repeat: no-repeat !important; box-shadow: none !important; filter: none; }
+body.has-opening-art .envelope__panel::before { display: none !important; }
+body.has-opening-art .envelope__panel--left { width: 73%; background-size: calc(100% / .73) 100% !important; background-position: left top !important; border: 0 !important; }
+body.has-opening-art .envelope__panel--right { width: 27%; background-size: calc(100% / .27) 100% !important; background-position: right top !important; border: 0 !important; }
+body.has-opening-art .envelope__seam { display: none !important; }
+body.has-opening-art .seal, body.has-opening-art .seal:hover, body.has-opening-art .seal:focus, body.has-opening-art .seal:active { z-index: 20; left: 72.7%; top: 50.4%; width: clamp(96px, 22vw, 130px); height: auto; aspect-ratio: 1; transform: translate(-50%,-50%); border: 0 !important; border-radius: 50%; background: none !important; background-color: transparent !important; box-shadow: none !important; color: transparent !important; outline: none; }
+body.has-opening-art .seal::before, body.has-opening-art .seal::after, body.has-opening-art .seal__monogram, body.has-opening-art .seal__hint, body.has-opening-art .opening-caption { display: none !important; }
+body.has-opening-art .envelope.is-opening .seal { opacity: 0; pointer-events: none; }
 
 /* ---------- MONOGRAMA OFICIAL ---------- */
-body.has-monogram-art .monogram,
-body.has-monogram-art .inside-monogram {
-  border: 0;
-  border-radius: 0;
-  background-color: transparent;
-  background-image: url("../nostro timbre.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  color: transparent;
-  box-shadow: none;
-  /* O PNG original tem um fundo claro. Multiplicar o elemento pelo papel
-     faz esse fundo desaparecer visualmente, preservando o traço marrom. */
-  mix-blend-mode: multiply;
-}
-
-body.has-monogram-art .monogram {
-  width: clamp(92px, 23vw, 138px);
-  height: auto;
-  aspect-ratio: 1;
-}
-
-body.has-monogram-art .inside-monogram {
-  width: min(54%, 270px);
-  height: auto;
-  aspect-ratio: 1;
-  margin: auto;
-}
-
-/* O miolo visto durante a abertura usa o mesmo papel claro. */
-body.has-opening-art .envelope__inside {
-  inset: 0;
-  border: 0;
-  background: linear-gradient(180deg,#fffaf1,#f7ecd8);
-  box-shadow: none;
-}
+body.has-monogram-art .monogram, body.has-monogram-art .inside-monogram { border: 0; border-radius: 0; background-color: transparent; background-image: url("../nostro timbre.png"); background-repeat: no-repeat; background-position: center; background-size: contain; color: transparent; box-shadow: none; mix-blend-mode: multiply; }
+body.has-monogram-art .monogram { width: clamp(92px, 23vw, 138px); height: auto; aspect-ratio: 1; }
+body.has-monogram-art .inside-monogram { width: min(54%, 270px); height: auto; aspect-ratio: 1; margin: auto; }
+body.has-opening-art .envelope__inside { inset: 0; border: 0; background: linear-gradient(180deg,#fffaf1,#f7ecd8); box-shadow: none; }
 
 @media (max-width: 600px) {
-  body.has-opening-art .envelope {
-    width: min(100vw, calc(100dvh * .7065));
-  }
-
-  body.has-opening-art .language-switch {
-    top: max(10px, env(safe-area-inset-top));
-    background: rgba(255,250,241,.76);
-  }
+  .couple-lockup { min-height: 220px; max-width: 100%; }
+  .couple-name { font-size: clamp(54px, 15vw, 76px) !important; }
+  .couple-name--larissa { left: 8% !important; top: 22% !important; }
+  .couple-name--riccardo { right: 6% !important; top: 59% !important; }
+  body.has-opening-art .envelope { width: min(100vw, calc(100dvh * .7065)); }
+  body.has-opening-art .language-switch { top: max(10px, env(safe-area-inset-top)); background: rgba(255,250,241,.76); }
 }
