@@ -1,0 +1,64 @@
+/* Ajustes finais dos nomes Larissa e Riccardo com Allura. */
+.couple-lockup {
+  max-width: 680px;
+  min-height: 250px;
+  overflow: visible !important;
+  padding: 0 28px;
+}
+
+.couple-name {
+  font-family: "Allura", cursive !important;
+  font-weight: 400;
+  font-size: clamp(58px, 12vw, 100px) !important;
+  line-height: 1.08 !important;
+  white-space: nowrap;
+  overflow: visible !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  padding: .12em .18em .18em;
+  margin: -.12em -.18em -.18em;
+}
+
+.couple-name--larissa {
+  left: 12% !important;
+  top: 17% !important;
+}
+
+.couple-name--riccardo {
+  right: 10% !important;
+  top: 55% !important;
+}
+
+.page--invitation .couple-name {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1) !important;
+}
+
+.page--invitation.is-current .couple-name {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .couple-lockup {
+    min-height: 230px;
+    max-width: 100%;
+    padding: 0 34px;
+  }
+
+  .couple-name {
+    font-size: clamp(50px, 13.2vw, 68px) !important;
+    line-height: 1.12 !important;
+  }
+
+  .couple-name--larissa {
+    left: 10% !important;
+    top: 20% !important;
+  }
+
+  .couple-name--riccardo {
+    right: 9% !important;
+    top: 57% !important;
+  }
+}
