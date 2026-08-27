@@ -81,6 +81,44 @@
   transform: translate(0, 0) scale(1) !important;
 }
 
+/* Ramos de sakura oficiais */
+.floral-art {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: clamp(190px, 32vw, 330px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity 1s ease .2s, transform 1.35s cubic-bezier(.2,.75,.2,1) .2s;
+}
+
+.floral-art--tl {
+  top: 38px;
+  left: -68px;
+  transform: translate(-24px,-18px) rotate(-8deg) scale(.92);
+}
+
+.floral-art--br {
+  right: -76px;
+  bottom: 130px;
+  transform: translate(24px,18px) rotate(172deg) scale(.92);
+}
+
+.page--invitation.is-current .floral-art {
+  opacity: .94;
+}
+
+.page--invitation.is-current .floral-art--tl {
+  transform: translate(0,0) rotate(-8deg) scale(1);
+}
+
+.page--invitation.is-current .floral-art--br {
+  transform: translate(0,0) rotate(172deg) scale(1);
+}
+
 @media (max-width: 600px) {
   .couple-lockup {
     min-height: 315px;
@@ -107,6 +145,20 @@
     top: 52% !important;
     width: min(78vw, 380px);
   }
+
+  .floral-art {
+    width: min(46vw, 245px);
+  }
+
+  .floral-art--tl {
+    top: 52px;
+    left: -86px;
+  }
+
+  .floral-art--br {
+    right: -92px;
+    bottom: 155px;
+  }
 }
 
 @media (max-width: 380px) {
@@ -127,11 +179,16 @@
     width: 75vw;
     right: 0 !important;
   }
+
+  .floral-art {
+    width: 44vw;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .couple-lockup .couple-name,
-  .couple-lockup .ampersand {
+  .couple-lockup .ampersand,
+  .floral-art {
     transition: none !important;
   }
 }
