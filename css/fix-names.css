@@ -5,7 +5,7 @@
   max-width: 760px;
   aspect-ratio: 1919 / 1486;
   min-height: 0;
-  margin: 0 auto 4px;
+  margin: -44px auto -44px;
   overflow: visible !important;
   padding: 0;
 }
@@ -21,14 +21,13 @@
   line-height: 0 !important;
   letter-spacing: 0 !important;
   overflow: visible !important;
-  clip-path: none !important;
-  -webkit-clip-path: none !important;
   padding: 0 !important;
   margin: 0 !important;
-  opacity: 0;
   pointer-events: none;
-  will-change: transform, opacity;
+  will-change: clip-path, opacity, transform;
 }
+
+/* O & surge suavemente ao fundo durante a revelação dos nomes. */
 .couple-lockup .ampersand {
   z-index: 1;
   left: 14.75% !important;
@@ -36,8 +35,17 @@
   width: 70.87%;
   height: 100%;
   background-image: url("../%26.png");
-  transform: translateY(10px) scale(.96) !important;
-  transition: opacity .85s ease, transform 1.05s cubic-bezier(.2,.75,.2,1) !important;
+  opacity: 0;
+  transform: scale(.94);
+  transition: opacity 2.8s ease .25s, transform 3.1s cubic-bezier(.2,.7,.2,1) .25s !important;
+}
+
+/* Panorama suave da esquerda para a direita. */
+.couple-lockup .couple-name {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  -webkit-clip-path: inset(0 100% 0 0);
+  transform: translateX(-10px);
 }
 .couple-lockup .couple-name--larissa {
   z-index: 2;
@@ -47,8 +55,10 @@
   width: 63.05%;
   height: 54.31%;
   background-image: url("../Larissa.png");
-  transform: translate(-10px, 6px) scale(.985) !important;
-  transition: opacity .8s ease .38s, transform 1s cubic-bezier(.2,.75,.2,1) .38s !important;
+  transition: clip-path 3s cubic-bezier(.18,.7,.2,1) .25s,
+              -webkit-clip-path 3s cubic-bezier(.18,.7,.2,1) .25s,
+              opacity .55s ease .25s,
+              transform 3s cubic-bezier(.18,.7,.2,1) .25s !important;
 }
 .couple-lockup .couple-name--riccardo {
   z-index: 3;
@@ -58,51 +68,57 @@
   width: 73.37%;
   height: 54.31%;
   background-image: url("../Riccardo.png");
-  transform: translate(10px, 6px) scale(.985) !important;
-  transition: opacity .8s ease .76s, transform 1s cubic-bezier(.2,.75,.2,1) .76s !important;
+  transition: clip-path 3.15s cubic-bezier(.18,.7,.2,1) .75s,
+              -webkit-clip-path 3.15s cubic-bezier(.18,.7,.2,1) .75s,
+              opacity .55s ease .75s,
+              transform 3.15s cubic-bezier(.18,.7,.2,1) .75s !important;
 }
-.page--invitation.is-current .couple-lockup .ampersand,
-.page--invitation.is-current .couple-lockup .couple-name--larissa,
-.page--invitation.is-current .couple-lockup .couple-name--riccardo {
+.page--invitation.is-current .couple-lockup .ampersand {
   opacity: 1;
-  transform: translate(0,0) scale(1) !important;
+  transform: scale(1);
+}
+.page--invitation.is-current .couple-lockup .couple-name {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+  transform: translateX(0);
 }
 
 /* Densidade vertical da página */
-.page--invitation .invitation-card { padding-top: 18px; }
-.page--invitation .parents { margin-bottom: 8px; }
+.page--invitation .invitation-card { padding-top: 14px; }
+.page--invitation .parents { margin-bottom: 6px; }
 .invitation-lead {
-  letter-spacing: .08em !important;
+  letter-spacing: .07em !important;
   white-space: nowrap;
   font-size: clamp(10.5px, 2.8vw, 13px) !important;
-  margin: 6px auto 0 !important;
+  margin: 4px auto 0 !important;
 }
 
-/* Data destacada logo abaixo dos nomes */
+/* Data destacada e aproximada da composição dos nomes. */
 .event-date {
-  margin: -4px auto 6px;
+  margin: 0 auto 10px;
   text-align: center;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(30px, 7vw, 44px);
+  font-size: clamp(31px, 7vw, 44px);
   font-weight: 500;
   line-height: 1;
   color: var(--brown);
-  letter-spacing: .035em;
+  letter-spacing: .025em;
 }
 .event-details--compact {
   max-width: 520px;
-  margin: 0 auto 8px !important;
+  margin: 0 auto 7px !important;
   grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-  gap: 10px !important;
+  gap: 8px !important;
 }
-.event-details--compact > div { padding: 5px 8px !important; }
+.event-details--compact > div { padding: 4px 7px !important; }
 
 /* Informações adicionais do evento */
 .event-notes {
   max-width: 620px;
-  margin: 4px auto 14px;
+  margin: 2px auto 12px;
   text-align: center;
-  font: 500 13px/1.45 "Quicksand", sans-serif;
+  font: 500 13px/1.42 "Quicksand", sans-serif;
   color: var(--brown2);
 }
 .event-notes p { margin: 3px 0; }
@@ -111,7 +127,7 @@
 html[lang="it-IT"] .pt-only { display: none; }
 html[lang="it-IT"] .it-only { display: inline; }
 
-/* Elementos inspirados no Save the Date: folhagens leves e pétalas em movimento. */
+/* Mantém apenas as pétalas do estilo Save the Date. */
 .invitation-scroll { position: relative; }
 .invitation-card,
 .page--invitation .page-actions { position: relative; z-index: 2; }
@@ -122,56 +138,6 @@ html[lang="it-IT"] .it-only { display: inline; }
   overflow: hidden;
   pointer-events: none;
 }
-.save-branch {
-  position: absolute;
-  width: 165px;
-  height: 245px;
-  opacity: 0;
-  filter: drop-shadow(0 2px 2px rgba(74,86,53,.08));
-  transform-origin: 50% 90%;
-  transition: opacity 1.1s ease, transform 1.5s cubic-bezier(.2,.72,.2,1);
-}
-.save-branch--tl { top: 8px; left: 6px; transform: translate(-18px,-12px) rotate(-16deg) scale(.92); }
-.save-branch--br { right: 4px; bottom: 92px; transform: translate(18px,12px) rotate(164deg) scale(.92); }
-.save-stem {
-  position: absolute;
-  left: 76px;
-  top: 14px;
-  width: 2px;
-  height: 218px;
-  border-radius: 50%;
-  background: linear-gradient(#71825b,#526b48);
-  transform: rotate(-17deg);
-  transform-origin: bottom center;
-}
-.save-leaf {
-  position: absolute;
-  width: 42px;
-  height: 18px;
-  border-radius: 100% 0 100% 0;
-  background: linear-gradient(145deg,#b4c3a2 0%,#819875 58%,#687f5d 100%);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
-  opacity: .95;
-}
-.save-leaf::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  right: 5px;
-  top: 8px;
-  height: 1px;
-  background: rgba(82,107,72,.42);
-  transform: rotate(-6deg);
-}
-.save-branch .l1 { left: 54px; top: 35px; transform: rotate(-42deg); }
-.save-branch .l2 { left: 78px; top: 66px; transform: rotate(28deg) scale(.93); }
-.save-branch .l3 { left: 46px; top: 101px; transform: rotate(-36deg) scale(1.04); }
-.save-branch .l4 { left: 77px; top: 138px; transform: rotate(34deg) scale(.9); }
-.save-branch .l5 { left: 40px; top: 177px; transform: rotate(-34deg) scale(.86); }
-.page--invitation.is-current .save-branch { opacity: .88; }
-.page--invitation.is-current .save-branch--tl { transform: translate(0,0) rotate(-16deg) scale(1); }
-.page--invitation.is-current .save-branch--br { transform: translate(0,0) rotate(164deg) scale(1); }
-
 .save-petal {
   --x: 50vw;
   --delay: 0s;
@@ -210,51 +176,38 @@ html[lang="it-IT"] .it-only { display: inline; }
 }
 
 @media (max-width: 600px) {
-  .page--invitation .invitation-card { padding-top: 12px; }
+  .page--invitation .invitation-card { padding-top: 10px; }
   .couple-lockup {
     width: 100%;
     max-width: 100%;
     aspect-ratio: 1919 / 1486;
-    margin-bottom: 2px;
+    margin: -32px auto -24px;
   }
   .invitation-lead {
-    letter-spacing: .055em !important;
+    letter-spacing: .05em !important;
     font-size: clamp(10px, 2.9vw, 12px) !important;
-    margin-top: 3px !important;
+    margin-top: 2px !important;
   }
   .event-date {
     font-size: clamp(29px, 9vw, 38px);
-    margin-top: -8px;
-    margin-bottom: 4px;
+    margin: 0 auto 8px;
   }
   .event-details--compact {
-    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-    gap: 6px !important;
-    margin-bottom: 5px !important;
+    gap: 5px !important;
+    margin-bottom: 4px !important;
   }
   .event-details--compact > div { padding: 3px 4px !important; }
   .event-notes {
-    margin-top: 2px;
-    margin-bottom: 10px;
+    margin-top: 1px;
+    margin-bottom: 9px;
     padding: 0 8px;
     font-size: 12px;
-    line-height: 1.38;
+    line-height: 1.36;
   }
-  .save-branch { width: 132px; height: 200px; }
-  .save-branch--tl { top: 30px; left: 2px; }
-  .save-branch--br { right: 0; bottom: 125px; }
-  .save-stem { left: 62px; height: 176px; }
-  .save-leaf { width: 34px; height: 15px; }
-  .save-branch .l1 { left: 45px; top: 31px; }
-  .save-branch .l2 { left: 63px; top: 58px; }
-  .save-branch .l3 { left: 38px; top: 86px; }
-  .save-branch .l4 { left: 62px; top: 114px; }
-  .save-branch .l5 { left: 33px; top: 145px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .couple-lockup .couple-name,
-  .couple-lockup .ampersand,
-  .save-branch { transition: none !important; }
+  .couple-lockup .ampersand { transition: none !important; }
   .page--invitation.is-current .save-petal { animation: none !important; opacity: .28; }
 }
