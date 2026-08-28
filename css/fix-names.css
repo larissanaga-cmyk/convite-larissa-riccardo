@@ -84,7 +84,7 @@
   transform: translateX(0);
 }
 
-/* Página mais compacta, para que as informações principais caibam em uma única tela. */
+/* Enquadramento principal da primeira tela do convite. */
 .page--invitation .invitation-card { padding-top: 8px; }
 .page--invitation .parents { margin-bottom: 2px; }
 .invitation-lead {
@@ -94,9 +94,9 @@
   margin: 2px auto 0 !important;
 }
 
-/* Data menor, com mais respiro entre as letras. */
+/* Data com respiro próprio antes do bloco de horários. */
 .event-date {
-  margin: -2px auto 4px;
+  margin: -2px auto 18px;
   text-align: center;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(25px, 5.8vw, 34px);
@@ -106,9 +106,10 @@
   letter-spacing: .085em;
 }
 
+/* Horários + confirmação + traje formam um único bloco visual abaixo da data. */
 .event-details--compact {
   max-width: 500px;
-  margin: -2px auto 3px !important;
+  margin: 0 auto 4px !important;
   grid-template-columns: repeat(2, minmax(0,1fr)) !important;
   gap: 5px !important;
 }
@@ -117,9 +118,9 @@
 
 .event-notes {
   max-width: 620px;
-  margin: 0 auto 6px;
+  margin: 2px auto 4px;
   text-align: center;
-  font: 500 12.5px/1.32 "Quicksand", sans-serif;
+  font: 500 12.5px/1.3 "Quicksand", sans-serif;
   color: var(--brown2);
 }
 .event-notes p { margin: 1px 0; }
@@ -134,12 +135,18 @@ html[lang="it-IT"] .it-only { display: inline; }
 .page--invitation .page-actions { position: relative; z-index: 2; }
 
 @media (max-width: 600px) {
-  .page--invitation .invitation-card { padding-top: 6px; }
+  .page--invitation .invitation-card {
+    padding-top: 2px;
+    padding-bottom: 0;
+  }
+  .page--invitation .parents {
+    margin-bottom: 0;
+  }
   .couple-lockup {
     width: 100%;
     max-width: 100%;
     aspect-ratio: 1919 / 1486;
-    margin: -42px auto -40px;
+    margin: -46px auto -44px;
   }
   .invitation-lead {
     letter-spacing: .045em !important;
@@ -149,29 +156,48 @@ html[lang="it-IT"] .it-only { display: inline; }
   .event-date {
     font-size: clamp(23px, 7vw, 30px);
     letter-spacing: .09em;
-    margin: -4px auto 2px;
+    margin: -2px auto 17px;
   }
   .event-details--compact {
     gap: 4px !important;
-    margin: -2px auto 2px !important;
+    margin: 0 auto 3px !important;
   }
   .event-details--compact > div { padding: 1px 3px !important; }
-  .event-details--compact span { font-size: 10px !important; }
-  .event-details--compact strong { font-size: 17px !important; }
+  .event-details--compact span { font-size: 9.5px !important; }
+  .event-details--compact strong { font-size: 16px !important; }
   .event-notes {
-    margin: 0 auto 4px;
+    margin: 1px auto 2px;
     padding: 0 6px;
-    font-size: 11px;
-    line-height: 1.25;
+    font-size: 10.5px;
+    line-height: 1.22;
   }
   .event-notes p { margin: 1px 0; }
+
+  /* O primeiro enquadramento termina logo após a informação de traje. */
+  .page--invitation .rsvp-block {
+    margin-top: 14px;
+  }
 }
 
 @media (max-height: 780px) and (max-width: 600px) {
-  .page--invitation .parents { transform: scale(.94); transform-origin: top center; margin-bottom: -4px; }
-  .couple-lockup { margin-top: -52px; margin-bottom: -48px; }
-  .event-date { font-size: 22px; }
-  .event-notes { font-size: 10.5px; }
+  .page--invitation .invitation-card { padding-top: 0; }
+  .page--invitation .parents {
+    transform: scale(.91);
+    transform-origin: top center;
+    margin-bottom: -7px;
+  }
+  .invitation-lead { margin-top: -2px !important; }
+  .couple-lockup { margin-top: -56px; margin-bottom: -52px; }
+  .event-date {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  .event-details--compact span { font-size: 9px !important; }
+  .event-details--compact strong { font-size: 15px !important; }
+  .event-notes {
+    font-size: 9.8px;
+    line-height: 1.18;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
