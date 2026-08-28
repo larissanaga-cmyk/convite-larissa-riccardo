@@ -2,17 +2,18 @@
   Google Apps Script para receber o RSVP e gravar no Google Sheets.
 
   Planilha esperada (linha 1):
-  Data/Hora | Nome | Presença | Quantidade | WhatsApp | Mensagem | Idioma
+  Data/Hora | Nome | Presença | WhatsApp | Mensagem
 
-  COMO USAR (depois):
+  COMO USAR:
   1. Abra a planilha RSVP - Casamento Larissa e Riccardo.
-  2. Extensões > Apps Script.
-  3. Cole este código.
-  4. Ajuste SHEET_NAME se necessário.
-  5. Implantar > Nova implantação > App da Web.
-  6. Executar como: você.
-  7. Quem pode acessar: qualquer pessoa.
-  8. Copie a URL /exec e coloque em js/config.js como GOOGLE_SCRIPT_URL.
+  2. Crie/renomeie a aba para RSVP.
+  3. Na linha 1 use: Data/Hora | Nome | Presença | WhatsApp | Mensagem
+  4. Extensões > Apps Script.
+  5. Cole este código.
+  6. Implantar > Nova implantação > App da Web.
+  7. Executar como: você.
+  8. Quem pode acessar: qualquer pessoa.
+  9. Copie a URL /exec e coloque em js/config.js como GOOGLE_SCRIPT_URL.
 */
 
 const SHEET_NAME = 'RSVP';
@@ -30,10 +31,8 @@ function doPost(e) {
       new Date(),
       sanitize_(data.name),
       data.attendance === 'yes' ? 'Sim' : 'Não',
-      Number(data.quantity || 1),
       sanitize_(data.whatsapp),
-      sanitize_(data.message),
-      data.language === 'it' ? 'Italiano' : 'Português'
+      sanitize_(data.message)
     ]);
 
     return json_({ ok: true });
@@ -48,7 +47,6 @@ function doGet() {
 
 function sanitize_(value) {
   const text = String(value || '').trim();
-  // Evita fórmulas acidentais/maliciosas no Sheets.
   return /^[=+\-@]/.test(text) ? "'" + text : text;
 }
 
