@@ -83,7 +83,21 @@
   }
 
   function openGift(id){const gift=gifts.find(g=>g.id===id);if(!gift)return;state.selectedGift=gift;const box=$("#gift-checkout");box.hidden=false;$("#checkout-title").textContent=gift.title[state.lang];$("#checkout-copy").textContent=t("checkoutDemo");box.scrollIntoView({behavior:"smooth",block:"center"});}
-  async function startCheckout(){if(!state.selectedGift)return;if(!config.PAYMENT_API_URL){alert(t("giftDemo"));return;}try{const response=await fetch(config.PAYMENT_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({giftId:state.selectedGift.id,lang:state.lang})});if(!response.ok)throw new Error("Checkout request failed");const data=await response.json();if(data.init_point)window.location.href=data.init_point;else throw new Error("Missing init_point");}catch(error){console.error(error);alert(state.lang==="it"?"Non è stato possibile aprire il pagamento.":"Não foi possível abrir o pagamento.");}}
+  async function startCheckout(){
+    if(!state.selectedGift)return;
+    if(!config.PAYMENT_API_URL){alert(t("giftDemo"));return;}
+    try{
+      const response=await fetch(config.PAYMENT_API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({giftId:state.selectedGift.id,lang:state.lang})});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(data?.details?.message || data?.error || "Checkout request failed");
+      const checkoutUrl=data.sandbox_init_point || data.init_point;
+      if(!checkoutUrl)throw new Error("Missing checkout URL");
+      window.location.href=checkoutUrl;
+    }catch(error){
+      console.error(error);
+      alert((state.lang==="it"?"Non è stato possibile aprire il pagamento: ":"Não foi possível abrir o pagamento: ") + (error?.message || "erro desconhecido"));
+    }
+  }
 
   function setupMenu(){const button=$("#menu-button"),panel=$("#menu-panel");button.addEventListener("click",()=>{const open=panel.classList.toggle("is-open");button.setAttribute("aria-expanded",String(open));});panel.addEventListener("click",()=>{panel.classList.remove("is-open");button.setAttribute("aria-expanded","false")});document.addEventListener("click",e=>{if(!panel.contains(e.target)&&!button.contains(e.target)){panel.classList.remove("is-open");button.setAttribute("aria-expanded","false")}});}
 
