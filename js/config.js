@@ -7,7 +7,7 @@
 */
 window.WEDDING_CONFIG = {
   GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyFgRi30pMGKWrkqRyEkltDASbHIDSqDG1OLHtFHVZeZwfy_PwDBYuMfZNhm1jYvmR3/exec",
-  PAYMENT_API_URL: "",
+  PAYMENT_API_URL: "https://convite-mercadopago.larissa-naga.workers.dev/",
   MUSIC_SRC: "",
   MAP_URL: "https://share.google/CtQGtm6MDaeGIzhuj"
 };
