@@ -67,31 +67,28 @@
   opacity: 1;
   transform: translate(0,0) scale(1) !important;
 }
-.floral-art {
-  position: absolute;
-  z-index: 1;
-  display: block;
-  width: clamp(190px, 32vw, 330px);
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0;
-  transform-origin: center;
-  transition: opacity 1s ease .2s, transform 1.35s cubic-bezier(.2,.75,.2,1) .2s;
+
+/* Ajustes tipográficos desta página */
+.invitation-lead {
+  letter-spacing: .12em !important;
+  white-space: nowrap;
+  font-size: clamp(10.5px, 2.8vw, 13px) !important;
 }
-.floral-art--tl {
-  top: 38px;
-  left: -68px;
-  transform: translate(-24px,-18px) rotate(-8deg) scale(.92);
+
+/* Informações adicionais do evento */
+.event-notes {
+  max-width: 620px;
+  margin: -10px auto 26px;
+  text-align: center;
+  font: 500 13px/1.55 "Quicksand", sans-serif;
+  color: var(--brown2);
 }
-.floral-art--br {
-  right: -76px;
-  bottom: 130px;
-  transform: translate(24px,18px) rotate(172deg) scale(.92);
-}
-.page--invitation.is-current .floral-art { opacity: .94; }
-.page--invitation.is-current .floral-art--tl { transform: translate(0,0) rotate(-8deg) scale(1); }
-.page--invitation.is-current .floral-art--br { transform: translate(0,0) rotate(172deg) scale(1); }
+.event-notes p { margin: 4px 0; }
+.event-notes strong { font-weight: 600; color: var(--brown); }
+.it-only { display: none; }
+html[lang="it-IT"] .pt-only { display: none; }
+html[lang="it-IT"] .it-only { display: inline; }
+
 @media (max-width: 600px) {
   .couple-lockup {
     width: 100%;
@@ -99,13 +96,18 @@
     aspect-ratio: 1919 / 1486;
     margin-bottom: 16px;
   }
-  .floral-art { width: min(46vw, 245px); }
-  .floral-art--tl { top: 52px; left: -86px; }
-  .floral-art--br { right: -92px; bottom: 155px; }
+  .invitation-lead {
+    letter-spacing: .08em !important;
+    font-size: clamp(10px, 2.9vw, 12px) !important;
+  }
+  .event-notes {
+    margin-top: -6px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
 }
-@media (max-width: 380px) { .floral-art { width: 44vw; } }
+
 @media (prefers-reduced-motion: reduce) {
   .couple-lockup .couple-name,
-  .couple-lockup .ampersand,
-  .floral-art { transition: none !important; }
+  .couple-lockup .ampersand { transition: none !important; }
 }
