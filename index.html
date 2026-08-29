@@ -11,6 +11,14 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme-images.css">
   <link rel="stylesheet" href="css/fix-names.css">
+  <style>
+    .payment-return{position:fixed;z-index:200;inset:0;display:grid;place-items:center;padding:22px;background:rgba(66,42,24,.30);backdrop-filter:blur(5px)}
+    .payment-return[hidden]{display:none}
+    .payment-return__card{width:min(92vw,460px);padding:28px 24px 24px;border:1px solid rgba(106,63,32,.18);border-radius:24px;background:#fffaf1;box-shadow:0 22px 60px rgba(67,41,19,.22);text-align:center;color:#57361f}
+    .payment-return__mark{width:54px;height:54px;margin:0 auto 14px;border:1px solid rgba(201,151,55,.55);border-radius:50%;display:grid;place-items:center;font-size:27px;color:#8a5d38}
+    .payment-return__message{margin:0 auto 20px;max-width:360px;font:500 16px/1.55 "Quicksand",sans-serif;color:#6a3f20}
+    .payment-return__button{border:0;border-radius:999px;padding:11px 22px;background:#6a3f20;color:white;font:600 13px "Quicksand",sans-serif;cursor:pointer}
+  </style>
 </head>
 <body>
   <main class="experience" id="experience">
@@ -73,6 +81,14 @@
 
     <div class="page-dots" id="page-dots" hidden><button class="is-active" data-page="0" aria-label="Página 1"></button><button data-page="1" aria-label="Página 2"></button><button data-page="2" aria-label="Página 3"></button></div>
 
+    <div class="payment-return" id="payment-return" hidden role="dialog" aria-modal="true" aria-labelledby="payment-return-message">
+      <div class="payment-return__card">
+        <div class="payment-return__mark" aria-hidden="true">♡</div>
+        <p class="payment-return__message" id="payment-return-message"></p>
+        <button class="payment-return__button" id="payment-return-close" type="button">OK</button>
+      </div>
+    </div>
+
     <section class="opening-overlay" id="opening-overlay" aria-labelledby="opening-title">
       <div class="language-switch" role="group" aria-label="Escolha o idioma"><button class="lang-button is-active" type="button" data-lang="pt">PT</button><span>|</span><button class="lang-button" type="button" data-lang="it">IT</button></div>
       <h1 id="opening-title" class="sr-only">Convite de Larissa e Riccardo</h1>
@@ -91,5 +107,57 @@
   <script src="js/config.js?v=3"></script>
   <script src="js/assets.js"></script>
   <script src="js/app.js?v=3"></script>
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const payment = params.get('payment');
+      if (!payment) return;
+
+      const lang = localStorage.getItem('weddingLang') === 'it' ? 'it' : 'pt';
+      const messages = {
+        success: {
+          pt: 'Presente recebido com carinho. Muito obrigada!',
+          it: 'Regalo ricevuto con affetto. Grazie di cuore!'
+        },
+        pending: {
+          pt: 'Seu pagamento está em análise. Assim que for confirmado, o presente será registrado.',
+          it: 'Il tuo pagamento è in verifica. Appena sarà confermato, il regalo verrà registrato.'
+        },
+        failure: {
+          pt: 'O pagamento não foi concluído. Você pode tentar novamente quando quiser.',
+          it: 'Il pagamento non è stato completato. Puoi riprovare quando vuoi.'
+        }
+      };
+
+      const selected = messages[payment];
+      if (!selected) return;
+
+      const overlay = document.getElementById('payment-return');
+      const message = document.getElementById('payment-return-message');
+      const close = document.getElementById('payment-return-close');
+      const opening = document.getElementById('opening-overlay');
+      const tools = document.getElementById('experience-tools');
+      const dots = document.getElementById('page-dots');
+      const track = document.getElementById('pages-track');
+      const pages = [...document.querySelectorAll('.page')];
+
+      window.addEventListener('DOMContentLoaded', () => {
+        if (opening) opening.classList.add('is-gone');
+        if (tools) tools.hidden = false;
+        if (dots) dots.hidden = false;
+        if (track) track.style.transform = 'translate3d(-200vw,0,0)';
+        pages.forEach((page, i) => page.classList.toggle('is-current', i === 2));
+        document.querySelectorAll('#page-dots button').forEach((dot, i) => dot.classList.toggle('is-active', i === 2));
+        message.textContent = selected[lang];
+        overlay.hidden = false;
+      });
+
+      close.addEventListener('click', () => {
+        overlay.hidden = true;
+        const cleanUrl = window.location.pathname + window.location.hash;
+        history.replaceState({}, '', cleanUrl);
+      });
+    })();
+  </script>
 </body>
 </html>
