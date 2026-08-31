@@ -63,7 +63,7 @@
     try{
       const response=await fetch(config.PAYMENT_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({giftId:selected.id,lang:lang()})});
       const data=await response.json().catch(()=>({})); if(!response.ok)throw new Error(data?.details?.message||data?.error||'Checkout request failed');
-      const url=data.sandbox_init_point||data.init_point; if(!url)throw new Error('Missing checkout URL'); window.location.href=url;
+      const url=data.init_point; if(!url)throw new Error('Missing production checkout URL'); window.location.href=url;
     }catch(error){alert((lang()==='it'?'Non è stato possibile aprire il pagamento: ':'Não foi possível abrir o pagamento: ')+(error?.message||'erro desconhecido'));}
   }
 
