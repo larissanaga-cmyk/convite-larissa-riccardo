@@ -1,5 +1,6 @@
 (() => {
   const gifts = [
+    {id:'teste_2', image:'19-contribuicao-livre-pix.jpg', price:2, pt:'TESTE DE PAGAMENTO — remover após a validação', it:'TEST PAGAMENTO — rimuovere dopo la verifica'},
     {id:'roma_300', image:'01-roma-jogador.jpg', price:300, pt:'Ajude a Larissa a não surtar quando a Roma perde — contribua para comprarem um jogador melhor', it:'Aiuta Larissa a non impazzire quando la Roma perde — contribuisci per comprare un giocatore migliore'},
     {id:'moto_600', image:'02-pecas-moto.jpg', price:600, pt:'Ajude o Riccardo a comprar mais uma peça importada para a moto — porque aparentemente ainda falta alguma', it:'Aiuta Riccardo a comprare un altro pezzo importato per la moto — perché a quanto pare ne manca ancora uno'},
     {id:'tenis_400', image:'03-tenis.jpg', price:400, pt:'Ajude o Riccardo a comprar mais um tênis que provavelmente nunca vai sair da caixa', it:'Aiuta Riccardo a comprare un altro paio di sneakers che probabilmente non usciranno mai dalla scatola'},
