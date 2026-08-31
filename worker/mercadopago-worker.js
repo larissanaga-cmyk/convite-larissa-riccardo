@@ -8,6 +8,7 @@
 */
 
 const GIFTS = {
+  teste_2: { title: 'Teste de pagamento - convite Larissa e Riccardo', price: 2 },
   roma_300: { title: 'Ajude a Roma a comprar um jogador melhor', price: 300 },
   moto_600: { title: 'Mais uma peça importada para a moto', price: 600 },
   tenis_400: { title: 'Mais um tênis que talvez nunca saia da caixa', price: 400 },
