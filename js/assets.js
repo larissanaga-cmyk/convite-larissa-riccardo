@@ -68,4 +68,15 @@
       }
     }, true);
   }
+
+  window.addEventListener("load", () => {
+    const style = document.createElement("link");
+    style.rel = "stylesheet";
+    style.href = "css/gifts-extended.css?v=1";
+    document.head.appendChild(style);
+
+    const script = document.createElement("script");
+    script.src = "js/gifts-extended.js?v=1";
+    document.body.appendChild(script);
+  });
 })();
