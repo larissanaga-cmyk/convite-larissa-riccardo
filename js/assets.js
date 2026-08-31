@@ -70,13 +70,15 @@
   }
 
   window.addEventListener("load", () => {
-    const style = document.createElement("link");
-    style.rel = "stylesheet";
-    style.href = "css/gifts-extended.css?v=1";
-    document.head.appendChild(style);
+    ["css/gifts-extended.css?v=2", "css/gift-sprite.css?v=1"].forEach((href) => {
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = href;
+      document.head.appendChild(style);
+    });
 
     const script = document.createElement("script");
-    script.src = "js/gifts-extended.js?v=1";
+    script.src = "js/gifts-extended.js?v=2";
     document.body.appendChild(script);
   });
 })();
