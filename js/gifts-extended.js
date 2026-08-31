@@ -23,7 +23,6 @@
 
   const config = window.WEDDING_CONFIG || {};
   let selected = null;
-
   const lang = () => document.documentElement.lang?.toLowerCase().startsWith('it') ? 'it' : 'pt';
   const money = v => new Intl.NumberFormat(lang()==='it'?'it-IT':'pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(v);
   const escapeHTML = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
@@ -35,47 +34,29 @@
   }
 
   function render(){
-    const grid = document.querySelector('#gift-grid');
-    if(!grid) return;
+    const grid = document.querySelector('#gift-grid'); if(!grid) return;
     const l = lang();
     grid.innerHTML = gifts.map((g,i)=>`<article class="gift-card gift-card--illustrated${g.pix?' gift-card--pix':''}"><img class="gift-card__image" src="${art(g,i)}" alt="" loading="lazy"><div class="gift-card__body"><h3>${escapeHTML(g[l])}</h3><div class="gift-card__price">${g.pix?(l==='it'?'Valore libero via PIX':'Valor livre via PIX'):money(g.price)}</div><button class="primary-button gift-action-extended" type="button" data-gift="${g.id}">${l==='it'?'Regala':'Presentear'}</button></div></article>`).join('');
     grid.querySelectorAll('.gift-action-extended').forEach(btn=>btn.addEventListener('click',()=>openGift(btn.dataset.gift)));
   }
 
   function resetAction(handler, label){
-    const old = document.querySelector('#checkout-action');
-    if(!old) return null;
-    const fresh = old.cloneNode(true);
-    old.replaceWith(fresh);
-    fresh.textContent = label;
-    fresh.disabled = false;
-    fresh.addEventListener('click', handler);
-    return fresh;
+    const old=document.querySelector('#checkout-action'); if(!old) return null;
+    const fresh=old.cloneNode(true); old.replaceWith(fresh); fresh.textContent=label; fresh.disabled=false; fresh.addEventListener('click',handler); return fresh;
   }
 
   function openGift(id){
-    selected = gifts.find(g=>g.id===id);
-    if(!selected) return;
-    const l=lang(), box=document.querySelector('#gift-checkout');
-    box.hidden=false;
-    document.querySelector('#checkout-title').textContent=selected[l];
-    const methods=document.querySelector('.payment-methods');
+    selected=gifts.find(g=>g.id===id); if(!selected) return;
+    const l=lang(), box=document.querySelector('#gift-checkout'); box.hidden=false;
+    document.querySelector('#checkout-title').textContent=selected[l]; const methods=document.querySelector('.payment-methods');
     if(selected.pix){
-      document.querySelector('#checkout-copy').innerHTML = l==='it'
-        ? 'Questa opzione è esclusiva per contributi via PIX. Scegli liberamente il valore e usa la chiave qui sotto.<div class="pix-key" id="pix-key"></div>'
-        : 'Esta opção é exclusiva para contribuição via PIX. Escolha o valor que desejar e utilize a chave abaixo.<div class="pix-key" id="pix-key"></div>';
+      document.querySelector('#checkout-copy').innerHTML=l==='it'?'Questa opzione è esclusiva per contributi via PIX. Scegli liberamente il valore e usa la chiave qui sotto.<div class="pix-key" id="pix-key"></div>':'Esta opção é exclusiva para contribuição via PIX. Escolha o valor que desejar e utilize a chave abaixo.<div class="pix-key" id="pix-key"></div>';
       if(methods) methods.innerHTML='<span>PIX</span>';
-      const key=config.PIX_KEY||'';
-      const keyBox=document.querySelector('#pix-key');
-      keyBox.textContent=key || (l==='it'?'Chiave PIX da aggiungere prima della pubblicazione.':'Chave PIX será adicionada antes da publicação final.');
-      const button=resetAction(async()=>{
-        if(!key) return;
-        await navigator.clipboard.writeText(key);
-        button.textContent=l==='it'?'Chiave copiata!':'Chave copiada!';
-      }, l==='it'?'Copia chiave PIX':'Copiar chave PIX');
-      if(button && !key) button.disabled=true;
+      const key=config.PIX_KEY||'', keyBox=document.querySelector('#pix-key'); keyBox.textContent=key||(l==='it'?'Chiave PIX da aggiungere prima della pubblicazione.':'Chave PIX será adicionada antes da publicação final.');
+      const button=resetAction(async()=>{if(!key)return;await navigator.clipboard.writeText(key);button.textContent=l==='it'?'Chiave copiata!':'Chave copiada!';},l==='it'?'Copia chiave PIX':'Copiar chave PIX');
+      if(button&&!key) button.disabled=true;
     }else{
-      document.querySelector('#checkout-copy').textContent = l==='it'?'Pagamento sicuro tramite Mercado Pago.':'Pagamento seguro pelo Mercado Pago.';
+      document.querySelector('#checkout-copy').textContent=l==='it'?'Pagamento sicuro tramite Mercado Pago.':'Pagamento seguro pelo Mercado Pago.';
       if(methods) methods.innerHTML=`<span>PIX</span><span>${l==='it'?'Carta':'Cartão'}</span>`;
       resetAction(startPayment,l==='it'?'Continua al pagamento':'Continuar para pagamento');
     }
@@ -83,23 +64,15 @@
   }
 
   async function startPayment(){
-    if(!selected || selected.pix) return;
+    if(!selected||selected.pix)return;
     if(!config.PAYMENT_API_URL){alert(lang()==='it'?'Pagamento non configurato.':'Pagamento não configurado.');return;}
     try{
       const response=await fetch(config.PAYMENT_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({giftId:selected.id,lang:lang()})});
-      const data=await response.json().catch(()=>({}));
-      if(!response.ok) throw new Error(data?.details?.message||data?.error||'Checkout request failed');
-      const url=data.sandbox_init_point||data.init_point;
-      if(!url) throw new Error('Missing checkout URL');
-      window.location.href=url;
-    }catch(error){
-      alert((lang()==='it'?'Non è stato possibile aprire il pagamento: ':'Não foi possível abrir o pagamento: ')+(error?.message||'erro desconhecido'));
-    }
+      const data=await response.json().catch(()=>({})); if(!response.ok)throw new Error(data?.details?.message||data?.error||'Checkout request failed');
+      const url=data.sandbox_init_point||data.init_point; if(!url)throw new Error('Missing checkout URL'); window.location.href=url;
+    }catch(error){alert((lang()==='it'?'Non è stato possibile aprire il pagamento: ':'Não foi possível abrir o pagamento: ')+(error?.message||'erro desconhecido'));}
   }
 
-  function init(){
-    render();
-    document.querySelectorAll('.lang-button').forEach(btn=>btn.addEventListener('click',()=>setTimeout(render,0)));
-  }
-  document.addEventListener('DOMContentLoaded',init);
+  function init(){render();document.querySelectorAll('.lang-button').forEach(btn=>btn.addEventListener('click',()=>setTimeout(render,0)));}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
