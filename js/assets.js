@@ -70,7 +70,11 @@
   }
 
   window.addEventListener("load", () => {
-    ["css/gifts-extended.css?v=2", "css/gift-sprite.css?v=1"].forEach((href) => {
+    [
+      "css/gifts-extended.css?v=4",
+      "css/gift-sprite.css?v=4",
+      "css/gift-sprite-positions.css?v=1"
+    ].forEach((href) => {
       const style = document.createElement("link");
       style.rel = "stylesheet";
       style.href = href;
@@ -78,7 +82,7 @@
     });
 
     const script = document.createElement("script");
-    script.src = "js/gifts-extended.js?v=2";
+    script.src = "js/gifts-extended.js?v=4";
     document.body.appendChild(script);
   });
 })();
