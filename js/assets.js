@@ -69,20 +69,60 @@
     }, true);
   }
 
+  function installGiftIllustrations() {
+    const sprite = new Image();
+    sprite.decoding = "async";
+    sprite.onload = () => {
+      const cellW = sprite.naturalWidth / 6;
+      const cellH = sprite.naturalHeight / 4;
+      const crops = [];
+
+      for (let i = 0; i < 19; i += 1) {
+        const col = i % 6;
+        const row = Math.floor(i / 6);
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(cellW);
+        canvas.height = Math.round(cellH);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(
+          sprite,
+          col * cellW,
+          row * cellH,
+          cellW,
+          cellH,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        crops.push(canvas.toDataURL("image/jpeg", 0.92));
+      }
+
+      const apply = () => {
+        document.querySelectorAll("#gift-grid .gift-card__image").forEach((img, index) => {
+          if (crops[index] && img.src !== crops[index]) img.src = crops[index];
+        });
+      };
+
+      apply();
+      const grid = document.getElementById("gift-grid");
+      if (grid) {
+        const observer = new MutationObserver(() => requestAnimationFrame(apply));
+        observer.observe(grid, { childList: true, subtree: true });
+      }
+    };
+    sprite.src = "assets/gifts-sprite.jpg?v=3";
+  }
+
   window.addEventListener("load", () => {
-    [
-      "css/gifts-extended.css?v=4",
-      "css/gift-sprite.css?v=4",
-      "css/gift-sprite-positions.css?v=1"
-    ].forEach((href) => {
-      const style = document.createElement("link");
-      style.rel = "stylesheet";
-      style.href = href;
-      document.head.appendChild(style);
-    });
+    const style = document.createElement("link");
+    style.rel = "stylesheet";
+    style.href = "css/gifts-extended.css?v=5";
+    document.head.appendChild(style);
 
     const script = document.createElement("script");
-    script.src = "js/gifts-extended.js?v=4";
+    script.src = "js/gifts-extended.js?v=5";
+    script.onload = installGiftIllustrations;
     document.body.appendChild(script);
   });
 })();
