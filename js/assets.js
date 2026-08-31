@@ -56,11 +56,11 @@
   window.addEventListener("load", () => {
     const style = document.createElement("link");
     style.rel = "stylesheet";
-    style.href = "css/gifts-extended.css?v=8";
+    style.href = "css/gifts-extended.css?v=9";
     document.head.appendChild(style);
 
     const script = document.createElement("script");
-    script.src = "js/gifts-extended.js?v=8";
+    script.src = "js/gifts-extended.js?v=9";
     document.body.appendChild(script);
   });
 })();
