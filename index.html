@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Italianno&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260901-1">
-  <link rel="stylesheet" href="css/theme-images.css?v=20260901-1">
-  <link rel="stylesheet" href="css/fix-names.css?v=20260901-1">
+  <link rel="stylesheet" href="css/style.css?v=20260901-3">
+  <link rel="stylesheet" href="css/theme-images.css?v=20260901-3">
+  <link rel="stylesheet" href="css/fix-names.css?v=20260901-3">
   <style>
     .payment-return{position:fixed;z-index:200;inset:0;display:grid;place-items:center;padding:22px;background:rgba(66,42,24,.30);backdrop-filter:blur(5px)}
     .payment-return[hidden]{display:none}
@@ -104,9 +104,9 @@
   </main>
 
   <audio id="background-music" loop preload="none"></audio>
-  <script src="js/config.js?v=20260901-1"></script>
-  <script src="js/assets.js?v=20260901-2"></script>
-  <script src="js/app.js?v=20260901-1"></script>
+  <script src="js/config.js?v=20260901-3"></script>
+  <script src="js/assets.js?v=20260901-3"></script>
+  <script src="js/app.js?v=20260901-3"></script>
   <script>
     (() => {
       const params = new URLSearchParams(window.location.search);
@@ -115,18 +115,9 @@
 
       const lang = localStorage.getItem('weddingLang') === 'it' ? 'it' : 'pt';
       const messages = {
-        success: {
-          pt: 'Presente recebido com carinho. Muito obrigada!',
-          it: 'Regalo ricevuto con affetto. Grazie di cuore!'
-        },
-        pending: {
-          pt: 'Seu pagamento está em análise. Assim que for confirmado, o presente será registrado.',
-          it: 'Il tuo pagamento è in verifica. Appena sarà confermato, il regalo verrà registrato.'
-        },
-        failure: {
-          pt: 'O pagamento não foi concluído. Você pode tentar novamente quando quiser.',
-          it: 'Il pagamento non è stato completato. Puoi riprovare quando vuoi.'
-        }
+        success: { pt: 'Presente recebido com carinho. Muito obrigada!', it: 'Regalo ricevuto con affetto. Grazie di cuore!' },
+        pending: { pt: 'Seu pagamento está em análise. Assim que for confirmado, o presente será registrado.', it: 'Il tuo pagamento è in verifica. Appena sarà confermato, il regalo verrà registrato.' },
+        failure: { pt: 'O pagamento não foi concluído. Você pode tentar novamente quando quiser.', it: 'Il pagamento non è stato completato. Puoi riprovare quando vuoi.' }
       };
 
       const selected = messages[payment];
