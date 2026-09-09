@@ -54,7 +54,17 @@
     notes.insertAdjacentElement('afterend', guide);
   }
 
+  function setupCloudflareAnalytics() {
+    if (document.querySelector('script[data-cf-beacon]')) return;
+    const analytics = document.createElement('script');
+    analytics.type = 'module';
+    analytics.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    analytics.setAttribute('data-cf-beacon', '{"token":"67fca687f4014c65ad70fa5ae795fcb8"}');
+    document.head.appendChild(analytics);
+  }
+
   setupInvitationInfo();
+  setupCloudflareAnalytics();
 
   const form = document.querySelector("#rsvp-form");
   if (form) {
@@ -101,6 +111,7 @@
 
   window.addEventListener("load", () => {
     setupInvitationInfo();
+    setupCloudflareAnalytics();
 
     const style = document.createElement("link");
     style.rel = "stylesheet";
