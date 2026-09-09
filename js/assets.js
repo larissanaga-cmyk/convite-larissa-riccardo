@@ -54,6 +54,54 @@
     notes.insertAdjacentElement('afterend', guide);
   }
 
+  function setupLocationSection() {
+    if (document.querySelector('.location-card')) return;
+    const rsvp = document.querySelector('.rsvp-block');
+    if (!rsvp) return;
+
+    const config = window.WEDDING_CONFIG || {};
+    const mapUrl = config.MAP_URL || 'https://share.google/CtQGtm6MDaeGIzhuj';
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .location-card{max-width:650px;margin:34px auto 12px;padding:30px 22px 28px;border:1px solid rgba(201,151,55,.55);border-radius:28px;background:linear-gradient(180deg,rgba(255,253,247,.97),rgba(255,248,236,.94));box-shadow:0 10px 30px rgba(67,41,19,.08);text-align:center;color:#57361f}
+      .location-card__kicker{margin:0 0 8px;font:600 11px/1.2 "Quicksand",sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#b97810}
+      .location-card__rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px auto 8px;color:#c99737}
+      .location-card__rule::before,.location-card__rule::after{content:"";width:82px;height:1px;background:rgba(201,151,55,.48)}
+      .location-card h3{margin:5px 0 13px;font:400 clamp(40px,10vw,60px)/1 "Cormorant Garamond",Georgia,serif;color:#57361f}
+      .location-card__icon{width:104px;height:104px;margin:0 auto 17px;border:1px solid rgba(201,151,55,.30);border-radius:50%;display:grid;place-items:center;color:#b97810;background:rgba(255,250,241,.72)}
+      .location-card__icon svg{width:55px;height:55px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+      .location-card__text{max-width:500px;margin:0 auto 22px;font-size:clamp(18px,4.5vw,23px);line-height:1.5;color:#6a3f20}
+      .location-card__button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 24px;border:0;border-radius:999px;background:#6a3f20;color:#fff;text-decoration:none;font:600 14px/1.2 "Quicksand",sans-serif;box-shadow:0 8px 20px rgba(67,41,19,.14)}
+      .location-card__button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .location-card__footer{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px auto 0;color:#c99737}
+      .location-card__footer::before,.location-card__footer::after{content:"❧";font-size:26px;opacity:.65}
+      html[lang="pt-BR"] .location-card .it-only,html[lang="it-IT"] .location-card .pt-only{display:none!important}
+      @media(max-width:520px){.location-card{padding:25px 17px 24px;border-radius:23px;margin-top:28px}.location-card__icon{width:94px;height:94px}.location-card__button{width:100%;max-width:320px}}
+    `;
+    document.head.appendChild(style);
+
+    const card = document.createElement('section');
+    card.className = 'location-card';
+    card.setAttribute('aria-label', 'Localização do casamento');
+    card.innerHTML = `
+      <p class="location-card__kicker"><span class="pt-only">Como chegar</span><span class="it-only">Come arrivare</span></p>
+      <div class="location-card__rule">♥</div>
+      <h3><span class="pt-only">Localização</span><span class="it-only">Posizione</span></h3>
+      <div class="location-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><path d="M32 57s16-15.2 16-31a16 16 0 1 0-32 0c0 15.8 16 31 16 31z"/><circle cx="32" cy="26" r="5.5"/></svg>
+      </div>
+      <p class="location-card__text pt-only">Para facilitar sua chegada, toque no botão abaixo para abrir a localização e traçar sua rota.</p>
+      <p class="location-card__text it-only">Per facilitare il tuo arrivo, tocca il pulsante qui sotto per aprire la posizione e calcolare il percorso.</p>
+      <a class="location-card__button" href="${mapUrl}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.7 6-11.6a6 6 0 1 0-12 0C6 15.3 12 21 12 21z"/><circle cx="12" cy="9.5" r="2"/></svg>
+        <span class="pt-only">Abrir localização</span><span class="it-only">Apri la posizione</span>
+      </a>
+      <div class="location-card__footer">♥</div>
+    `;
+    rsvp.insertAdjacentElement('afterend', card);
+  }
+
   function setupCloudflareAnalytics() {
     if (document.querySelector('script[data-cf-beacon]')) return;
     const analytics = document.createElement('script');
@@ -64,6 +112,7 @@
   }
 
   setupInvitationInfo();
+  setupLocationSection();
   setupCloudflareAnalytics();
 
   const form = document.querySelector("#rsvp-form");
@@ -111,6 +160,7 @@
 
   window.addEventListener("load", () => {
     setupInvitationInfo();
+    setupLocationSection();
     setupCloudflareAnalytics();
 
     const style = document.createElement("link");
