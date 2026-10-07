@@ -54,6 +54,15 @@
     notes.insertAdjacentElement('afterend', guide);
   }
 
+  function setupRsvpDeadline() {
+    const note = document.querySelector('.event-notes p:first-child');
+    if (!note) return;
+    const pt = note.querySelector('.pt-only');
+    const it = note.querySelector('.it-only');
+    if (pt) pt.innerHTML = 'Confirme a sua presença até o dia <strong>10/10/2026</strong>';
+    if (it) it.innerHTML = 'Conferma la tua presenza entro il <strong>10/10/2026</strong>';
+  }
+
   function setupLocationSection() {
     if (document.querySelector('.location-card')) return;
     const rsvp = document.querySelector('.rsvp-block');
@@ -112,6 +121,7 @@
   }
 
   setupInvitationInfo();
+  setupRsvpDeadline();
   setupLocationSection();
   setupCloudflareAnalytics();
 
@@ -160,6 +170,7 @@
 
   window.addEventListener("load", () => {
     setupInvitationInfo();
+    setupRsvpDeadline();
     setupLocationSection();
     setupCloudflareAnalytics();
 
