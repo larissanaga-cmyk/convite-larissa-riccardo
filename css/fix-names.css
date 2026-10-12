@@ -221,3 +221,58 @@ html[lang="it-IT"] .it-only { display: inline; }
   .couple-lockup .couple-name,
   .couple-lockup .ampersand { transition: none !important; }
 }
+
+/* RSVP encerrado: o formulário continua no DOM para manter a compatibilidade
+   com os scripts do site, mas fica oculto somente na apresentação visual. */
+.event-notes p:first-child {
+  font-size: 0 !important;
+}
+.event-notes p:first-child::before {
+  display: inline;
+  font: 600 clamp(16px, 4vw, 20px)/1.4 "Quicksand", sans-serif;
+  color: #b97810;
+}
+html[lang="pt-BR"] .event-notes p:first-child::before {
+  content: "Confirmações de presença encerradas.";
+}
+html[lang="it-IT"] .event-notes p:first-child::before {
+  content: "Le conferme di partecipazione sono chiuse.";
+}
+
+.rsvp-block > .eyebrow,
+.rsvp-block > h2,
+.rsvp-block > form {
+  display: none !important;
+}
+.rsvp-block {
+  max-width: 620px;
+  margin: 24px auto 18px !important;
+  text-align: center;
+}
+.rsvp-block::before {
+  display: block;
+  margin: 0 0 8px;
+  font: 600 11px/1.2 "Quicksand", sans-serif;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #b97810;
+}
+.rsvp-block::after {
+  display: block;
+  margin: 0 auto;
+  padding: 24px 22px;
+  border: 1px solid rgba(201,151,55,.42);
+  border-radius: 22px;
+  background: rgba(255,250,241,.82);
+  box-shadow: 0 8px 24px rgba(67,41,19,.06);
+  font: 500 clamp(18px,4.5vw,22px)/1.6 "Quicksand", sans-serif;
+  color: #6a3f20;
+}
+html[lang="pt-BR"] .rsvp-block::before { content: "RSVP · Confirmações encerradas"; }
+html[lang="it-IT"] .rsvp-block::before { content: "RSVP · Conferme chiuse"; }
+html[lang="pt-BR"] .rsvp-block::after {
+  content: "Obrigada por confirmar sua presença! Agora é só contar os dias para celebrarmos juntos. Nos vemos em breve! 🥂✨";
+}
+html[lang="it-IT"] .rsvp-block::after {
+  content: "Grazie per aver confermato la tua presenza! Ora non resta che contare i giorni per festeggiare insieme. Ci vediamo presto! 🥂✨";
+}
